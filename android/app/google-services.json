@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "594290911366",
+    "project_id": "xiiner",
+    "storage_bucket": "xiiner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594290911366:android:f27e13be8f1a213c318907",
+        "android_client_info": {
+          "package_name": "com.example.xinner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVVrb98AztR3SH_KXiM0cdb86Yd4LjAZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

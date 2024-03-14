@@ -1,0 +1,329 @@
+
+
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+// ignore: depend_on_referenced_packages
+import 'package:google_sign_in/google_sign_in.dart';
+
+import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:xinner/authentication/screens/forget_password_screen%20copy.dart';
+import 'package:xinner/authentication/screens/home.dart';
+import 'package:xinner/authentication/screens/sign_in_screen.dart';
+import 'package:xinner/authentication/screens/sucsses_screen.dart';
+
+import 'package:xinner/utils/constants/colors.dart';
+import 'package:xinner/utils/constants/sizes.dart';
+import 'package:xinner/utils/constants/text_strings.dart';
+import 'package:xinner/utils/helper_functions.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+/*
+
+         child: Stack(
+            children: [
+              const LoginHeader(),
+              Positioned(
+               top: THelperFunctions.screenHeight() * 0.3,
+               child: Container(
+                 width: MediaQuery.of(context).size.width, // Use the desired width
+                child: Column(
+                children: [
+        LoginForm(),
+        LogingDivider(),
+        SizedBox(height: 8),
+        LoginSocialIcons(),
+      ],
+    ),
+  ),
+),
+
+              
+     ]   ), */
+
+          child: Padding(
+          padding: EdgeInsets.only(
+          //top: 3,
+          left: TSizes.defaultSpace,
+         // bottom: TSizes.defaultSpace,
+          right: TSizes.defaultSpace,
+        ),
+        
+        child:
+        Column(
+
+          children: [
+             SizedBox(height: 50),
+            LoginHeader(),
+            SizedBox(height: TSizes.defaultSpace),
+            LoginForm(),
+            LogingDivider(),
+            SizedBox(height: 8),
+            LoginSocialIcons()
+          ],
+        ), )
+      
+
+
+        
+  ),
+        
+
+        
+    );
+    
+  }
+}
+
+class LoginSocialIcons extends StatelessWidget {
+  const LoginSocialIcons({
+    super.key,
+  });
+  Future<void> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) return;
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    Get.off(HomePage());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: TColors.grey),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: IconButton(
+              onPressed: () {
+                signInWithGoogle();
+              },
+              icon: const Image(
+                width: TSizes.iconMd,
+                height: TSizes.iconMd,
+                image: AssetImage("assests/images/google-icon.png"),
+              )),
+        ),
+        const SizedBox(width: TSizes.spaceBtwItems),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: TColors.grey),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: IconButton(
+              onPressed: () {},
+              icon: const Image(
+                width: TSizes.iconMd,
+                height: TSizes.iconMd,
+                image: AssetImage("assests/images/facebook-icon.png"),
+              )),
+        )
+      ],
+    );
+  }
+}
+
+class LogingDivider extends StatelessWidget {
+  const LogingDivider({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Flexible(
+            child: Divider(
+          color: THelperFunctions.isDarkMode(context)
+              ? TColors.darkGrey
+              : TColors.grey,
+          thickness: 0.5,
+          indent: 60,
+          endIndent: 5,
+        )),
+        Text(
+          "Or sign in with",
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        Flexible(
+            child: Divider(
+          color: THelperFunctions.isDarkMode(context)
+              ? TColors.darkGrey
+              : TColors.grey,
+          thickness: 0.5,
+          indent: 5,
+          endIndent: 60,
+        )),
+      ],
+    );
+  }
+}
+class LoginForm extends StatefulWidget{
+  @override
+  State<LoginForm> createState()=> LoginFormState();
+
+}
+
+class LoginFormState extends State<LoginForm> {
+ 
+  bool isVisible = true;
+  TextEditingController passwordController  = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
+  String email = " ", password = " ";
+  GlobalKey<FormState> formState = GlobalKey();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+     
+      key: formState,
+      
+        child: Column(
+          children: [
+            TextFormField(
+              
+              validator: (Value) {
+                
+                if (Value?.isEmpty == true) return 'please enter your email';
+              },
+              onChanged: (value) => email = value,
+              decoration: const InputDecoration(
+                  prefixIcon: Icon(Iconsax.direct_right), labelText: "email"),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            TextFormField(
+              obscureText: isVisible,
+              controller: passwordController,
+              validator: (Value) {
+                if (Value?.isEmpty == true) return 'please enter the password';
+              },
+              onChanged: (value) => password = value,
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Iconsax.password_check),
+                  labelText: "password",
+                  suffixIcon:GestureDetector(onTap: () => 
+                  setState(() {
+                    isVisible = !isVisible;
+                  }),
+                  child: isVisible? const Icon(Icons.visibility_off):const Icon(Icons.visibility)
+
+                  ) ,
+            ),),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(value: true, onChanged: (value) {}),
+                    const Text("remember me")
+                  ],
+                ),
+                TextButton(
+                    onPressed: () {
+                      Get.to(() => ForgetPassword());
+                    },
+                    child: const Text("forget password?"))
+              ],
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    if (formState.currentState!.validate()) {
+                      if(user!.emailVerified){
+                                               try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: email, password: password);
+                        Get.off(
+                          () => HomePage(),
+                        );
+                      }   catch ( e ) {
+                        if  (e is FirebaseAuthException) {
+                        
+                         if(e.code == "user-not-found") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                         const  SnackBar(backgroundColor: Colors.red,content:  Text( 
+                          'user not found '),)
+                );
+              }
+              else if (e.code== "wrong-password"){}
+                  ScaffoldMessenger.of(context).showSnackBar(
+                         const  SnackBar(backgroundColor: Colors.red,content:  Text( 
+                          'wrong password '),)
+                );
+                          
+                       
+                      }
+                    }
+                      }
+        else{
+          print("youuuuu haveeeee toooo onfirrrrm yoooouuur emaaiil");
+        }
+                    // Get.to(NavigationMenu());
+                  }},
+                  child: const Text("singIn")),
+            ),
+            const SizedBox(height: 8),
+             TextButton(
+                    onPressed: () {
+                      Get.to(() =>  const SignInScreen());
+                    },
+                    child: const Text("you don't have an account ?"))
+          ],
+        ),
+     
+    );
+  }
+}
+
+class LoginHeader extends StatelessWidget {
+  const LoginHeader({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+  
+        Container(
+          height: 200,
+         
+          child: Expanded(
+            child: Image.asset(
+              'assests/images/Minimalist Blue Medical Logo(1)Croped.png',fit: BoxFit.cover,
+            ),
+          )
+        );
+        
+    
+  }
+}
