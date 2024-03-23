@@ -163,14 +163,6 @@ class _formulaireState extends State<formulaire> {
                       child: Container(
                         width: 150,
                         height: 50,
-                        /*  decoration: BoxDecoration(
-                            border: Border(
-                                top: BorderSide(color: Colors.black),
-                                right: BorderSide(color: Colors.black),
-                                bottom: BorderSide(color: Colors.black),
-                                left: BorderSide(color: Colors.black)),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)), */
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: TextFormField(
@@ -238,59 +230,6 @@ class _formulaireState extends State<formulaire> {
                         width: 140,
                       ),
                     ),
-
-                    /* Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 0, 0, 10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                top: BorderSide(color: Colors.black),
-                                right: BorderSide(color: Colors.black),
-                                bottom: BorderSide(color: Colors.black),
-                                left: BorderSide(color: Colors.black)),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: DropdownButtonFormField<String>(
-                          hint: Text('Male'),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(12)),
-                            ),
-                            //hintText: 'Male',
-                            border: InputBorder.none,
-                          ),
-                          value: selectitem,
-                          items: itemslist
-                              .map((item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Text(item,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: Color.fromARGB(255, 6, 6, 6))),
-                                  )))
-                              .toList(),
-                          onChanged: (item) {
-                            setState(() {
-                              selectitem = item;
-                            });
-                          },
-                        ),
-                        height: 48,
-                        width: 150,
-                
-                        /* child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                            controller: agecontroller,
-                            decoration: InputDecoration(
-                                border: InputBorder.none, hintText: 'S'),
-                          ),
-                        ), */
-                      ),
-                    ), */
                   ],
                 ),
                 Padding(
@@ -547,27 +486,11 @@ class _formulaireState extends State<formulaire> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                   ),
-                  /*  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                  ), */
+                 
                   onPressed: () {
                     OpenFiles();
                   },
-                  /*  child: Row(
-                    children: [
-                      Icon(
-                        Icons.file_upload_outlined,
-                        color: const Color.fromARGB(255, 12, 231, 19),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        'upload your medical prescription',
-                        style: TextStyle(color: Color.fromARGB(255, 96, 96, 96)),
-                      ),
-                    ],
-                  ),*/
+                 
                 ),
                 SizedBox(
                   height: 40,
