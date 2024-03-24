@@ -50,6 +50,10 @@ dependencies:
   gallery_picker: ^0.4.8
   file_picker: ^6.2.0
   open_file: ^3.3.2
+  maps_launcher: ^2.0.0
+  another_carousel_pro: ^1.0.2
+  carousel_slider: ^4.2.1
+  cupertino_icons: ^1.0.6
    
 
 
@@ -131,6 +135,12 @@ flutter:
     - assests/images/Minimalist Blue Medical Logo(2).png
     - assests/images/Minimalist Blue Medical Logo(1).png
     - assests/images/Minimalist Blue Medical Logo(1)Croped.png
+    - assests/images/doctor.png
+    - assests/images/picture1.png
+    - assests/images/picture2.png
+    - assests/images/picture3.png
+    - assests/images/picture4.png
+    - assests/images/picture5.png
 
 
   #--------------- LOCAL FONTS ------------------#
