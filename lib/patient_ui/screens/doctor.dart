@@ -119,7 +119,7 @@ class _AppointScreenState extends State<AppointScreen> {
                           onTap: () async {
                             final Uri url = Uri(
                               scheme: "tel",
-                              path: "4528698567",
+                              path: "2137698567",
                             );
                             if (await canLaunch(url.toString())) {
                               await launch(url.toString());
