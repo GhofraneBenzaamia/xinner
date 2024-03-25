@@ -2,8 +2,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
-import 'package:radioapp/button/My_button.dart';
-import 'package:radioapp/screens/success.dart';
+import 'package:xinner/patient_ui/screens/My_button.dart';
+import 'package:xinner/patient_ui/screens/success.dart';
 
 class formulaire extends StatefulWidget {
   static const String frm = "_formulaire";
