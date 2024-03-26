@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import  "package:xinner/patient_ui/screens/My_button.dart";
 import 'package:xinner/authentication/screens/login_screen.dart';
 import 'package:xinner/utils/constants/colors.dart';
 import 'package:xinner/utils/constants/sizes.dart';
@@ -84,7 +84,7 @@ class _onBoardingPageAroowRightState extends State<onBoardingPageAroowRight> {
         child: ElevatedButton(
           onPressed: () {
             if (curentPage == 2) {
-              Get.off(const LoginScreen());
+              Get.off(LoginScreen());
             } else {
               setState(() {
                 curentPage++;

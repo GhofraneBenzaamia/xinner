@@ -81,7 +81,7 @@ class _AppointScreenState extends State<AppointScreen> {
                     height: MediaQuery.of(context).size.height * 0.7,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/doctor.png"),
+                        image: AssetImage("assests/images/doctor.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -353,11 +353,11 @@ class _AppointScreenState extends State<AppointScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ImageCarousel(images: [
-                      "assets/picture1.png",
-                      "assets/picture2.png",
-                      "assets/picture3.png",
-                      "assets/picture4.png",
-                      "assets/picture5.png",
+                      "assests/images/picture1.png",
+                      "assests/images/picture2.png",
+                      "assests/images/picture3.png",
+                      "assests/images/picture4.png",
+                      "assests/images/picture5.png",
                       // Add more image paths as needed
                     ]),
                     Padding(

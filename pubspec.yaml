@@ -117,22 +117,17 @@ flutter:
   assets:
     - assests/images/facebook-icon.png
     - assests/images/google-icon.png
-    - assests/images/sammy-line-come-back-later.png
-    - assests/images/sammy-line-delivery.gif
+
     - assests/images/sammy-line-man-receives-a-mail.png
    
-    - assests/images/sammy-line-no-connection.gif
-    - assests/images/sammy-line-sale.png
-    - assests/images/sammy-line-searching.gif
-    - assests/images/sammy-line-shopping.gif
+
+
     - assests/images/sammy-line-success.png
-    - assests/images/sammy-line-travel-backpack-with-passport-and-air-ticket.gif
-    - assests/images/sammy-line-workout.gif
+
     - assests/images/CT scan-amico.png 
     - assests/images/Doctors-pana.png
     - assests/images/Radiography-amico(1).png
-    - assests/images/Minimalist Blue Medical Logo(2).png
-    - assests/images/Minimalist Blue Medical Logo(1).png
+ 
     - assests/images/Minimalist Blue Medical Logo(1)Croped.png
     - assests/images/doctor.png
     - assests/images/picture1.png

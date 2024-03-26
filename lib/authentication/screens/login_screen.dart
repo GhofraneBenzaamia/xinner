@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_sign_in/google_sign_in.dart';
-
+import  'package:xinner/patient_ui/screens/doctor.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:iconsax/iconsax.dart';
@@ -15,6 +15,7 @@ import 'package:xinner/authentication/screens/forget_password_screen%20copy.dart
 import 'package:xinner/authentication/screens/home.dart';
 import 'package:xinner/authentication/screens/sign_in_screen.dart';
 import 'package:xinner/authentication/screens/sucsses_screen.dart';
+import 'package:xinner/patient_ui/screens/formulaire.dart';
 
 import 'package:xinner/utils/constants/colors.dart';
 import 'package:xinner/utils/constants/sizes.dart';
@@ -105,7 +106,7 @@ class LoginSocialIcons extends StatelessWidget {
 
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
-    Get.off(HomePage());
+    Get.off(formulaire());
   }
 
   @override
@@ -195,6 +196,7 @@ class LoginFormState extends State<LoginForm> {
   TextEditingController passwordController  = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
   String email = " ", password = " ";
+  bool _isLoading = false;
   GlobalKey<FormState> formState = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -253,45 +255,76 @@ class LoginFormState extends State<LoginForm> {
               ],
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () async {
-                    if (formState.currentState!.validate()) {
-                      if(user!.emailVerified){
-                                               try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: email, password: password);
-                        Get.off(
-                          () => HomePage(),
-                        );
-                      }   catch ( e ) {
-                        if  (e is FirebaseAuthException) {
-                        
-                         if(e.code == "user-not-found") {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                         const  SnackBar(backgroundColor: Colors.red,content:  Text( 
-                          'user not found '),)
-                );
-              }
-              else if (e.code== "wrong-password"){}
-                  ScaffoldMessenger.of(context).showSnackBar(
-                         const  SnackBar(backgroundColor: Colors.red,content:  Text( 
-                          'wrong password '),)
-                );
-                          
-                       
-                      }
-                    }
-                      }
-        else{
-          print("youuuuu haveeeee toooo onfirrrrm yoooouuur emaaiil");
-        }
-                    // Get.to(NavigationMenu());
-                  }},
-                  child: const Text("singIn")),
+         // Define a boolean variable to control the visibility of the progress indicator
+
+
+SizedBox(
+  width: double.infinity,
+  child: ElevatedButton(
+    onPressed: () async {
+      setState(() {
+        _isLoading = true; // Show the progress indicator
+      });
+
+      if (formState.currentState!.validate()) {
+        try {
+          final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+
+          setState(() {
+            _isLoading = false; // Hide the progress indicator
+          });
+
+          if (credential.user != null && credential.user!.emailVerified) {
+            Get.off(() =>  AppointScreen());
+          } else {
+             ScaffoldMessenger.of(context).showSnackBar(
+           const  SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('email not verified'),
             ),
+          );
+            // Handle scenario where email is not verified or user is null
+          }
+        } on FirebaseAuthException catch (e) {
+          setState(() {
+            _isLoading = false; // Hide the progress indicator
+          });
+            if (e.code == 'user-not-found') {
+                ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('User not found '),
+            ),
+          );
+  
+  } else if (e.code == 'wrong-password') {
+     ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('Wrong password!'),
+            ),
+          );
+  } else{
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content:const  Text('Authentication error , try later'),
+            ),
+          );}
+        }
+      }
+    },
+    child: _isLoading
+        ? const CircularProgressIndicator() // Show the progress indicator
+        : const Text("SignIn"),
+  ),
+),
+
+
             const SizedBox(height: 8),
              TextButton(
                     onPressed: () {
