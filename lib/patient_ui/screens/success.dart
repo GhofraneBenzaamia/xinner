@@ -21,7 +21,7 @@ class _successState extends State<success> {
         title: Text(
           'Finish',
           style: TextStyle(
-            fontSize: 22,
+            fontSize: screenWidth * 0.06,
             fontWeight: FontWeight.bold,
           ),
         ),
