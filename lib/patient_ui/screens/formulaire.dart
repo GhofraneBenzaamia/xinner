@@ -74,9 +74,10 @@ class _formulaireState extends State<formulaire> {
           leading:
               IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
           backgroundColor: Colors.white,
-          title: const Text(
+          title: Text(
             'New Appointment',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: screenWidth * 0.07, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.close))],
@@ -173,7 +174,7 @@ class _formulaireState extends State<formulaire> {
                           child: DropdownButtonFormField<String>(
                             dropdownColor: Colors.white,
                             decoration: InputDecoration(
-                               hintText: 'Male',
+                              hintText: 'Male',
                               hintStyle: TextStyle(fontWeight: FontWeight.bold),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -182,19 +183,19 @@ class _formulaireState extends State<formulaire> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.05),
                             ),
                             value: selectitem,
                             items: itemslist
                                 .map((item) => DropdownMenuItem(
                                       value: item,
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: screenWidth * 0.02),
                                         child: Text(item,
                                             style: TextStyle(
-                                                fontSize: 15,
+                                                fontSize: screenWidth * 0.04,
                                                 color: Color.fromARGB(
                                                     255, 102, 102, 102))),
                                       ),
