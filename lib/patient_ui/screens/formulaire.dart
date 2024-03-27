@@ -173,9 +173,8 @@ class _formulaireState extends State<formulaire> {
                           child: DropdownButtonFormField<String>(
                             dropdownColor: Colors.white,
                             decoration: InputDecoration(
-                              labelText: 'Male',
-                              labelStyle:
-                                  TextStyle(fontWeight: FontWeight.bold),
+                               hintText: 'Male',
+                              hintStyle: TextStyle(fontWeight: FontWeight.bold),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide(color: Colors.blue)),
