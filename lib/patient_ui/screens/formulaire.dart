@@ -412,7 +412,10 @@ class _formulaireState extends State<formulaire> {
                       elevation: 5,
                       shadowColor: Colors.blue,
                       backgroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth *
+                              0.05), // Adjust the factor as needed
+
                       textStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
