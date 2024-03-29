@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:xinner/authentication/data/role.dart';
 import 'package:flutter/widgets.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_sign_in/google_sign_in.dart';
@@ -274,20 +275,13 @@ SizedBox(
           );
 
           setState(() {
-            _isLoading = false; // Hide the progress indicator
+            _isLoading = false; 
           });
 
           if (credential.user != null && credential.user!.emailVerified) {
-            Get.off(() =>  AppointScreen());
-          } else {
-             ScaffoldMessenger.of(context).showSnackBar(
-           const  SnackBar(
-              backgroundColor: Colors.red,
-              content: Text('email not verified'),
-            ),
-          );
-            // Handle scenario where email is not verified or user is null
-          }
+            CheckUserRole(user);
+          } 
+         
         } on FirebaseAuthException catch (e) {
           setState(() {
             _isLoading = false; // Hide the progress indicator
@@ -316,7 +310,15 @@ SizedBox(
             ),
           );}
         }
-      }
+      }else {
+             ScaffoldMessenger.of(context).showSnackBar(
+           const  SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('email not verified'),
+            ),
+          );
+            // Handle scenario where email is not verified or user is null
+          }
     },
     child: _isLoading
         ? const CircularProgressIndicator() // Show the progress indicator

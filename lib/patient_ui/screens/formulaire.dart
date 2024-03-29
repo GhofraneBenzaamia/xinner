@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:xinner/patient_ui/screens/My_button.dart';
 import 'package:xinner/patient_ui/screens/success.dart';
-
+import 'package:xinner/patient_ui/Data/formulaire_data.dart';
 class formulaire extends StatefulWidget {
   static const String frm = "_formulaire";
 
@@ -109,6 +109,7 @@ class _formulaireState extends State<formulaire> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: TextFormField(
+                        onChanged: (value) =>AppointmentFormData.fullName = value ,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (text) {
                           if (text!.isEmpty || text.length < 6) {
@@ -166,6 +167,7 @@ class _formulaireState extends State<formulaire> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: TextFormField(
+                            onChanged: (value) => AppointmentFormData.age = value,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (text) {
@@ -251,6 +253,7 @@ class _formulaireState extends State<formulaire> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0), //horizontal:20
                       child: TextFormField(
+                        onChanged: (value) => AppointmentFormData.phoneNumber = value,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (text) {
                           if (text!.isEmpty || text.length < 9) {
@@ -296,6 +299,7 @@ class _formulaireState extends State<formulaire> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0), //horizontal:20
                       child: TextFormField(
+                        
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (text) {
                           if (text!.isEmpty) {
