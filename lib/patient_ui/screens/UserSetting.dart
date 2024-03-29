@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:stup/EditProfile.dart';
-import 'package:stup/screens/ChangePassword.dart';
-import 'package:stup/screens/Log_Out.dart';
+import 'package:xinner/patient_ui/screens/EditProfile.dart';
+import 'package:xinner/patient_ui/screens/ChangePassword.dart';
+import 'package:xinner/patient_ui/screens/Log_Out.dart';
 import 'package:stup/screens/TCollors.dart';
 import 'package:stup/screens/THelperFunctions.dart';
-import 'package:stup/screens/history.dart';
-import 'package:stup/screens/security.dart';
+import 'package:xinner/patient_ui/screens/history.dart';
+import 'package:xinner/patient_ui/screens/security.dart';
 void main() {
   runApp(MyApp());
 }
