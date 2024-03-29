@@ -273,18 +273,16 @@ SizedBox(
             email: email,
             password: password,
           );
-
-          setState(() {
-            _isLoading = false; 
-          });
-
           if (credential.user != null && credential.user!.emailVerified) {
             CheckUserRole(user);
           } 
+          setState(() {
+            _isLoading = false; 
+          });
          
         } on FirebaseAuthException catch (e) {
           setState(() {
-            _isLoading = false; // Hide the progress indicator
+            _isLoading = false; 
           });
             if (e.code == 'user-not-found') {
                 ScaffoldMessenger.of(context).showSnackBar(
