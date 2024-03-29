@@ -100,7 +100,7 @@ EdgeInsets padding = EdgeInsets.only(
                             
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('images/pict.png'),
+                              image: AssetImage('assets/images/pict.png'),
                             )
                           ),
                         ),
