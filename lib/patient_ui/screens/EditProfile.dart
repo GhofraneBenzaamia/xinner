@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xinner/patient_ui/screens/TCollors.dart';
 import 'package:xinner/patient_ui/screens/THelperFunctions.dart';
-import 'package:xinner/patient_ui/utils.dart';
+import 'package:xinner/patient_ui/besoin.dart';
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileStaate createState() => _EditProfileStaate();
