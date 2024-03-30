@@ -2,8 +2,12 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:stup/screens/TCollors.dart';
-import 'package:stup/screens/THelperFunctions.dart';
+// import 'package:stup/screens/TCollors.dart';
+// import 'package:stup/screens/THelperFunctions.dart';
+
+import 'package:xinner/utils/constants/colors.dart';
+import 'package:xinner/utils/helper_functions.dart';
+
 class ChangePassword extends StatefulWidget {
   @override
   _ChangePasswordState createState() => _ChangePasswordState();
