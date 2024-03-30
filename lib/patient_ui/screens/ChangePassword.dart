@@ -55,7 +55,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('images/cadna.png'),
+                              image: AssetImage('assets/images/cadna.png'),
                             )
                           ),
                         ),
