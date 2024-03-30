@@ -6,6 +6,7 @@ import 'package:xinner/patient_ui/screens/ChangePassword.dart';
 import 'package:xinner/patient_ui/screens/Log_Out.dart';
 import 'package:stup/screens/TCollors.dart';
 import 'package:stup/screens/THelperFunctions.dart';
+import 'package:xinner/utils/helper_functions.dart';
 import 'package:xinner/patient_ui/screens/history.dart';
 import 'package:xinner/patient_ui/screens/security.dart';
 void main() {
