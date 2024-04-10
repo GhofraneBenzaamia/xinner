@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:stup/screens/mytimeline_tile.dart';
+import 'package:xinner/patient_ui/screens/mytimeline_tile.dart';
 class history extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
