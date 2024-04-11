@@ -54,11 +54,13 @@ dependencies:
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.6
   firebase_app_check: ^0.2.1+19
-   
-
-
-
-
+  line_awesome_flutter: ^2.0.0
+  flutter_screenutil: ^5.0.0
+  animated_theme_switcher: ^2.0.0
+  path_provider: ^2.1.2
+  cupertino_icons: ^1.0.6
+  image_picker: ^1.0.7
+  timeline_tile: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -121,7 +123,8 @@ flutter:
 
     - assests/images/sammy-line-man-receives-a-mail.png
    
-
+    - assests/images/pict.png
+    - assests/images/cadna.png
 
     - assests/images/sammy-line-success.png
 
