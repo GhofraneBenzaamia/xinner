@@ -13,13 +13,15 @@ class success extends StatefulWidget {
 class _successState extends State<success> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
           'Finish',
           style: TextStyle(
-            fontSize: 22,
+            fontSize: screenWidth * 0.06,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -33,86 +35,72 @@ class _successState extends State<success> {
           children: [
             Text('Appointment added successfully',
                 style: TextStyle(
-                  letterSpacing: 2.0,
-                  fontSize: 20,
+                  letterSpacing:
+                      screenWidth * 0.005, // Adjust the factor as needed
+                  fontSize: screenWidth * 0.05, // Adjust the factor as needed
+
                   fontWeight: FontWeight.bold,
                 )),
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: EdgeInsets.symmetric(
+                      horizontal:
+                          screenWidth * 0.07), // Adjust the factor as needed
+
                   child: Icon(
                     Icons.check_circle,
                     color: Colors.green,
-                    size: 60,
+                    size: screenWidth * 0.2, // Adjust the factor as needed
                   ),
                 ),
-                SizedBox(width: 2),
+                SizedBox(
+                    width: screenWidth * 0.004), // Adjust the factor as needed
                 Image.asset(
                   'images/doc.jpg',
-                  width: 250,
-                  height: 400,
+                  width: screenWidth * 0.6, // 31.25% of the screen width
+                  height: screenHeight * 0.5, // 62.5% of the screen height
                 ),
               ],
             ),
             Text(
               'the doctor will verify your information ',
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: screenWidth * 0.05,
                   color: Color.fromARGB(255, 4, 179, 132),
                   fontWeight: FontWeight.bold),
             ),
             Text(
               'and notify you shortly',
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: screenWidth * 0.05,
                   color: Color.fromARGB(255, 4, 179, 132),
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 45,
+              height: screenHeight * 0.05625, // 5.625% of the screen height
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
               child: MaterialButton(
                 onPressed: () {},
                 color: Colors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 splashColor: Colors.blue,
-                minWidth: 40,
-                height: 40,
+                minWidth: screenWidth * 0.1,
+                height: screenHeight * 0.06,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 child: Text(
                   "Done",
                   style: TextStyle(
                       backgroundColor: Colors.blue,
-                      fontSize: 20,
+                      fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
               ),
             )
-            /* SizedBox(width: 20, height: 70),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: const Color.fromARGB(255, 4, 135, 242),
-                ),
-                child: Center(
-                  child: Text(
-                    'Done',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ), */
           ],
         ),
       )),
