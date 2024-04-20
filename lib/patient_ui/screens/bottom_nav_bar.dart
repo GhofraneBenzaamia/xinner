@@ -4,6 +4,7 @@ import 'package:xinner/patient_ui/screens/formulaire.dart';
 import 'package:xinner/patient_ui/screens/notification_page.dart';
 import 'package:xinner/patient_ui/screens/profile.dart';
 import 'package:xinner/patient_ui/screens/doctor.dart';
+import 'package:xinner/patient_ui/screens/profile/UserSetting.dart';
 
 class Navigation_Bar extends StatefulWidget {
   const Navigation_Bar({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _NavigationBarState extends State<Navigation_Bar> {
 
   static List<Widget> _screens = <Widget>[
     HomeScreen(),
-    ProfileScreen(),
+   SettingPageUI(),
     formulaire(),
     AppointScreen(),
     NotificationScreen(),
