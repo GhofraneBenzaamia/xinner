@@ -61,6 +61,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   image_picker: ^1.0.7
   timeline_tile: ^2.0.0
+  webview_flutter: ^2.8.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -124,7 +125,7 @@ flutter:
     - assests/images/sammy-line-man-receives-a-mail.png
    
     - assests/images/pict.png
-    - assests/images/cadna.png
+    - assests/images/lucker.png
 
     - assests/images/sammy-line-success.png
 
