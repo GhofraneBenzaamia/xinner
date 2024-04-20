@@ -109,7 +109,7 @@ class _InformationAssistantState extends State<InformationAssistant> {
   Container _photo() {
     return Container(
       width: 70,
-      child: _userImage("assets/images/photo.jpeg"),
+      child: _userImage("assests/images/patient.jpg"),
     );
   }
 
