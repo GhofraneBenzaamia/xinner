@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     UserNameImage userInfos = UserNameImage(
-        userName: "yousra", userImage: "assets/images/photo.jpeg");
+        userName: "yousra", userImage: "assests/images/photo.jpeg");
 
     return Scaffold(
       body: Stack(
@@ -74,15 +74,15 @@ class _HomePageState extends State<HomePage> {
                     child:
                         ListView(scrollDirection: Axis.horizontal, children: [
                       const SizedBox(width: 18),
-                      category('assets/images/Xray.jpeg', "x-ray"),
+                      category('assests/images/Xray.jpeg', "x-ray"),
                       const SizedBox(width: 18),
-                      category('assets/images/Eco.jpeg', "ecography"),
+                      category('assests/images/Eco.jpeg', "ecography"),
                       const SizedBox(width: 18),
-                      category('assets/images/Mammo.jpeg', "mammography"),
+                      category('assests/images/Mammo.jpeg', "mammography"),
                       const SizedBox(width: 18),
-                      category('assets/images/Ct.jpg', "ct"),
+                      category('assests/images/Ct.jpg', "ct"),
                       const SizedBox(width: 18),
-                      category('assets/images/irm.jpeg', "irm"),
+                      category('assests/images/irm.jpeg', "irm"),
                       const SizedBox(width: 18),
                     ])),
 
@@ -102,10 +102,10 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(scrollDirection: Axis.horizontal, children: [
                     const SizedBox(width: 18),
                     article("this is what you should do before your appointment",
-                        "1 January 2023", 'assets/images/ph.jpeg'),
+                        "1 January 2023", 'assests/images/ph.jpeg'),
                     const SizedBox(width: 18),
                     article("what are the dangers of irm?", "1 January 2023",
-                        'assets/images/mammo.jpeg'),
+                        'assests/images/mammo.jpeg'),
                     const SizedBox(width: 18),
                   ]),
                 ),
