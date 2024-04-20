@@ -9,6 +9,48 @@ import 'package:xinner/utils/constants/sizes.dart';
 import 'package:xinner/utils/helper_functions.dart';
 import 'package:iconsax/iconsax.dart';
 
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: THelperFunctions.isDarkMode(context)
+              ? Colors.white
+              : Colors.black,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                TTexts.signupTitle,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: TSizes.defaultSpace),
+              SignUpForm(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SignUpForm extends StatefulWidget {
+  @override
+  State<SignUpForm> createState() => SignUpFormState();
+}
+
 class SignUpFormState extends State<SignUpForm> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _passwordController = TextEditingController();
@@ -31,7 +73,6 @@ class SignUpFormState extends State<SignUpForm> {
       }
     } catch (e) {
       print('Error creating user document: $e');
-      // Handle any errors that occur during Firestore user creation
     }
   }
 
@@ -58,8 +99,7 @@ class SignUpFormState extends State<SignUpForm> {
         // Send email verification
         await userCredential.user!.sendEmailVerification();
 
-        // Navigate to email verification screen
-        Get.to(() => VerifyEmailScreen());
+        Get.to(() => VerifyEmailSreen());
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           backgroundColor: Colors.red,
