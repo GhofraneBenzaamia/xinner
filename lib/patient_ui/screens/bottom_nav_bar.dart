@@ -1,55 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:xinner/authentication/screens/home.dart';
 import 'package:xinner/patient_ui/screens/home.dart';
 import 'package:xinner/patient_ui/screens/formulaire.dart';
 import 'package:xinner/patient_ui/screens/notification_page.dart';
 import 'package:xinner/patient_ui/screens/doctor.dart';
 import 'package:xinner/patient_ui/screens/profile/UserSetting.dart';
 
-class Navigation_Bar extends StatefulWidget {
-  const Navigation_Bar({Key? key}) : super(key: key);
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
-  _NavigationBarState createState() => _NavigationBarState();
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _NavigationBarState extends State<Navigation_Bar> {
+class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
   static List<Widget> _screens = <Widget>[
-    HomeScreen(),
-   SettingPageUI(),
-    formulaire(),
-    AppointScreen(),
+    HomePage(
+      title: 'Yo',
+    ),
+    SettingPageUI(),
     NotificationScreen(),
+
+    AppointScreen(),
+    // NotificationScreen(),
   ];
 
   void _onItemTapped(int index) {
+    debugPrint(index.toString());
     setState(() {
       switch (index) {
         case 0:
           // HomeScreen
-          _selectedIndex = index;
+          _selectedIndex = 0;
           break;
         case 1:
           // ProfileScreen
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SettingPageUI()),
-          );
+          _selectedIndex = 1;
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => SettingPageUI()),
+          // );
           break;
         case 2:
           // NotificationScreen
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NotificationScreen()),
-          );
-          break;
+          _selectedIndex = 2;
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => NotificationScreen()),
+        // );
+        // break;
         case 3:
           // AppointScreen
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AppointScreen()),
-          );
+          _selectedIndex = 3;
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => AppointScreen()),
+          // );
           break;
       }
     });

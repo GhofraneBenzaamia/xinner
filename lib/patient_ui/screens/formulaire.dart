@@ -6,10 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
+import 'package:xinner/patient_ui/Data/form_data.dart';
 import 'package:xinner/patient_ui/screens/My_button.dart';
 import 'package:xinner/patient_ui/screens/success.dart';
 import 'package:xinner/patient_ui/Data/formulaire_data.dart';
-import 'package:xinner/patient_ui/Data/form_data.dart';
+// import 'package:xinner/patient_ui/Data/form_data.dart';
 import 'package:xinner/utils/helper_functions.dart';
 import 'package:xinner/utils/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +26,7 @@ Future<bool> uploadFileForUser(PlatformFile? file) async {
     // Convert PlatformFile to File using filePath
     File fileToUpload = File(filePath!);
 
-     final uploadRef = storageRef.child("medicalFiles/$userId/$fileName");
+    final uploadRef = storageRef.child("medicalFiles/$userId/$fileName");
     await uploadRef.putFile(fileToUpload); // Pass the File object to putFile
     return true;
   } catch (e) {
@@ -95,11 +96,8 @@ class _formulaireState extends State<formulaire> {
     double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leading:
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
           backgroundColor: Colors.white,
           title: Text(
             'New Appointment',
@@ -107,7 +105,6 @@ class _formulaireState extends State<formulaire> {
                 fontSize: screenWidth * 0.07, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.close))],
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -175,6 +172,7 @@ class _formulaireState extends State<formulaire> {
                               }
                               return null;
                             },
+                            controller: agecontroller,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -487,24 +485,28 @@ class _formulaireState extends State<formulaire> {
                   MyButton(
                       color: Colors.blue,
                       title: ('Done'),
-                      onPressed: ()async {
+                      onPressed: () async {
                         if (formstate.currentState!.validate()) {
-                    //   int age = int.parse(agecontroller.text);
-                      String gender = selectitem ?? 'Male';   
-                       bool success = await   uploadFileForUser(selectedFile) as bool;
-                       print("$success  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-                         submitForm(
-                          age : agecontroller.text, gender:  gender,
-      fullName: fullnamecontroller.text,
-    //  age: agecontroller.text,
-      phoneNumber: phonenumbercontroller.text,
-      medicalPrescription: medicalprescriptioncontroller.text,
-      currentMedications: currentmedicationscontroller.text,
-      dateOfSymptoms: dateofsympcontroller.text,
-      illnessesAndSurgeries: illnessescontroller.text,
-      allergyHistory: allergycontroller.text,
-    );
-                           }
+                          //   int age = int.parse(agecontroller.text);
+                          String gender = selectitem ?? 'Male';
+                          bool success =
+                              await uploadFileForUser(selectedFile) as bool;
+                          print(
+                              "$success  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+                          submitForm(
+                            age: agecontroller.text, gender: gender,
+                            fullName: fullnamecontroller.text,
+                            //  age: agecontroller.text,
+                            phoneNumber: phonenumbercontroller.text,
+                            medicalPrescription:
+                                medicalprescriptioncontroller.text,
+                            currentMedications:
+                                currentmedicationscontroller.text,
+                            dateOfSymptoms: dateofsympcontroller.text,
+                            illnessesAndSurgeries: illnessescontroller.text,
+                            allergyHistory: allergycontroller.text,
+                          );
+                        }
                       }),
                   SizedBox(
                     height: screenHeight * 0.03,
@@ -518,5 +520,3 @@ class _formulaireState extends State<formulaire> {
     );
   }
 }
-
-            

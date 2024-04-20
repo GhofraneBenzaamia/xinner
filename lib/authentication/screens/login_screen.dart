@@ -1,5 +1,3 @@
-
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +6,8 @@ import 'package:xinner/authentication/data/role.dart';
 import 'package:flutter/widgets.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_sign_in/google_sign_in.dart';
-import  'package:xinner/patient_ui/screens/doctor.dart';
+import 'package:xinner/controllers/auth_controller.dart';
+import 'package:xinner/patient_ui/screens/doctor.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:iconsax/iconsax.dart';
@@ -57,18 +56,15 @@ class LoginScreen extends StatelessWidget {
      ]   ), */
 
           child: Padding(
-          padding: EdgeInsets.only(
+        padding: EdgeInsets.only(
           //top: 3,
           left: TSizes.defaultSpace,
-         // bottom: TSizes.defaultSpace,
+          // bottom: TSizes.defaultSpace,
           right: TSizes.defaultSpace,
         ),
-        
-        child:
-        Column(
-
+        child: Column(
           children: [
-             SizedBox(height: 50),
+            SizedBox(height: 50),
             LoginHeader(),
             SizedBox(height: TSizes.defaultSpace),
             LoginForm(),
@@ -76,17 +72,9 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 8),
             LoginSocialIcons()
           ],
-        ), )
-      
-
-
-        
-  ),
-        
-
-        
+        ),
+      )),
     );
-    
   }
 }
 
@@ -188,16 +176,15 @@ class LogingDivider extends StatelessWidget {
     );
   }
 }
-class LoginForm extends StatefulWidget{
-  @override
-  State<LoginForm> createState()=> LoginFormState();
 
+class LoginForm extends StatefulWidget {
+  @override
+  State<LoginForm> createState() => LoginFormState();
 }
 
 class LoginFormState extends State<LoginForm> {
- 
   bool isVisible = true;
-  TextEditingController passwordController  = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
   String email = " ", password = " ";
   bool _isLoading = false;
@@ -205,138 +192,138 @@ class LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-     
       key: formState,
-      
-        child: Column(
-          children: [
-            TextFormField(
-              
-              validator: (Value) {
-                
-                if (Value?.isEmpty == true) return 'please enter your email';
-              },
-              onChanged: (value) => email = value,
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Iconsax.direct_right), labelText: "email"),
+      child: Column(
+        children: [
+          TextFormField(
+            validator: (Value) {
+              if (Value?.isEmpty == true) return 'please enter your email';
+            },
+            onChanged: (value) => email = value,
+            decoration: const InputDecoration(
+                prefixIcon: Icon(Iconsax.direct_right), labelText: "email"),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          TextFormField(
+            obscureText: isVisible,
+            controller: passwordController,
+            validator: (Value) {
+              if (Value?.isEmpty == true) return 'please enter the password';
+            },
+            onChanged: (value) => password = value,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Iconsax.password_check),
+              labelText: "password",
+              suffixIcon: GestureDetector(
+                  onTap: () => setState(() {
+                        isVisible = !isVisible;
+                      }),
+                  child: isVisible
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility)),
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextFormField(
-              obscureText: isVisible,
-              controller: passwordController,
-              validator: (Value) {
-                if (Value?.isEmpty == true) return 'please enter the password';
-              },
-              onChanged: (value) => password = value,
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Iconsax.password_check),
-                  labelText: "password",
-                  suffixIcon:GestureDetector(onTap: () => 
-                  setState(() {
-                    isVisible = !isVisible;
-                  }),
-                  child: isVisible? const Icon(Icons.visibility_off):const Icon(Icons.visibility)
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Checkbox(value: true, onChanged: (value) {}),
+                  const Text("remember me")
+                ],
+              ),
+              TextButton(
+                  onPressed: () {
+                    Get.to(() => ForgetPassword());
+                  },
+                  child: const Text("forget password?"))
+            ],
+          ),
+          const SizedBox(height: 8),
+          // Define a boolean variable to control the visibility of the progress indicator
 
-                  ) ,
-            ),),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Checkbox(value: true, onChanged: (value) {}),
-                    const Text("remember me")
-                  ],
+          GetBuilder<AuthController>(
+            builder: (controller) {
+              return SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      _isLoading = true; // Show the progress indicator
+                    });
+
+                    if (formState.currentState!.validate()) {
+                      try {
+                        controller.signInWithEmailAndPassword(email, password);
+                        // final credential = await FirebaseAuth.instance
+                        //     .signInWithEmailAndPassword(
+                        //   email: email,
+                        //   password: password,
+                        // );
+                        // if (credential.user != null &&
+                        //     credential.user!.emailVerified) {
+                        //   CheckUserRole(user);
+                        // }
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      } on FirebaseAuthException catch (e) {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                        if (e.code == 'user-not-found') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text('User not found '),
+                            ),
+                          );
+                        } else if (e.code == 'wrong-password') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text('Wrong password!'),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.red,
+                              content: const Text(
+                                  'Authentication error , try later'),
+                            ),
+                          );
+                        }
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text('email not verified'),
+                        ),
+                      );
+                      // Handle scenario where email is not verified or user is null
+                    }
+                  },
+                  child: _isLoading
+                      ? const CircularProgressIndicator() // Show the progress indicator
+                      : const Text("SignIn"),
                 ),
-                TextButton(
-                    onPressed: () {
-                      Get.to(() => ForgetPassword());
-                    },
-                    child: const Text("forget password?"))
-              ],
-            ),
-            const SizedBox(height: 8),
-         // Define a boolean variable to control the visibility of the progress indicator
+              );
+            },
+          ),
 
-
-SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed: () async {
-      setState(() {
-        _isLoading = true; // Show the progress indicator
-      });
-
-      if (formState.currentState!.validate()) {
-        try {
-          final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          );
-          if (credential.user != null && credential.user!.emailVerified) {
-            CheckUserRole(user);
-          } 
-          setState(() {
-            _isLoading = false; 
-          });
-         
-        } on FirebaseAuthException catch (e) {
-          setState(() {
-            _isLoading = false; 
-          });
-            if (e.code == 'user-not-found') {
-                ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.red,
-              content: Text('User not found '),
-            ),
-          );
-  
-  } else if (e.code == 'wrong-password') {
-     ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.red,
-              content: Text('Wrong password!'),
-            ),
-          );
-  } else{
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.red,
-              content:const  Text('Authentication error , try later'),
-            ),
-          );}
-        }
-      }else {
-             ScaffoldMessenger.of(context).showSnackBar(
-           const  SnackBar(
-              backgroundColor: Colors.red,
-              content: Text('email not verified'),
-            ),
-          );
-            // Handle scenario where email is not verified or user is null
-          }
-    },
-    child: _isLoading
-        ? const CircularProgressIndicator() // Show the progress indicator
-        : const Text("SignIn"),
-  ),
-),
-
-
-            const SizedBox(height: 8),
-             TextButton(
-                    onPressed: () {
-                      Get.to(() =>  const SignInScreen());
-                    },
-                    child: const Text("you don't have an account ?"))
-          ],
-        ),
-     
+          const SizedBox(height: 8),
+          TextButton(
+              onPressed: () {
+                Get.to(() => const SignInScreen());
+              },
+              child: const Text("you don't have an account ?"))
+        ],
+      ),
     );
   }
 }
@@ -348,18 +335,11 @@ class LoginHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-  
-        Container(
-          height: 200,
-         
-          child: Expanded(
-            child: Image.asset(
-              'assests/images/Minimalist Blue Medical Logo(1)Croped.png',fit: BoxFit.cover,
-            ),
-          )
-        );
-        
-    
+    return Container(
+        height: 200,
+        child: Image.asset(
+          'assests/images/Minimalist Blue Medical Logo(1)Croped.png',
+          fit: BoxFit.cover,
+        ));
   }
 }
