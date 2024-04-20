@@ -15,11 +15,12 @@ class _SettingPageUIState extends State<SettingPageUI> {
   String? _profilePictureUrl;
 
   Future<void> _signOutUser() async {
-    try {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
       await FirebaseAuth.instance.signOut();
       Navigator.pushReplacementNamed(context, '/login');
-    } catch (e) {
-      print('Error signing out: $e');
+    } else {
+      print('No user is currently signed in.');
     }
   }
 
@@ -63,6 +64,7 @@ class _SettingPageUIState extends State<SettingPageUI> {
           ),
         ),
         backgroundColor: Colors.white,
+        centerTitle: true, // Center the title horizontally
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
