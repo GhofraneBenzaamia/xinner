@@ -16,23 +16,41 @@ class _NavigationBarState extends State<Navigation_Bar> {
   int _selectedIndex = 0;
 
   static List<Widget> _screens = <Widget>[
-  HomeScreen(),
-  ProfileScreen(),
-  formulaire(),
-  AppointScreen(),
-  NotificationScreen(),
-];
-
+    HomeScreen(),
+    ProfileScreen(),
+    formulaire(),
+    AppointScreen(),
+    NotificationScreen(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
-      if (index != 3) { // If index is not for formulaire, update selected index
-        _selectedIndex = index;
-      } else {
-        Navigator.push( // Navigate to Formulaire screen
-          context,
-          MaterialPageRoute(builder: (context) => formulaire()),
-        );
+      switch (index) {
+        case 0:
+          // HomeScreen
+          _selectedIndex = index;
+          break;
+        case 1:
+          // ProfileScreen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
+          );
+          break;
+        case 2:
+          // NotificationScreen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NotificationScreen()),
+          );
+          break;
+        case 3:
+          // AppointScreen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AppointScreen()),
+          );
+          break;
       }
     });
   }
