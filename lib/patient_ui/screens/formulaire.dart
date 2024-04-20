@@ -1,8 +1,39 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, sized_box_for_whitespace
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
 import 'package:xinner/patient_ui/screens/My_button.dart';
 import 'package:xinner/patient_ui/screens/success.dart';
+import 'package:xinner/patient_ui/Data/formulaire_data.dart';
+import 'package:xinner/patient_ui/Data/form_data.dart';
+import 'package:xinner/utils/helper_functions.dart';
+import 'package:xinner/utils/constants/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:xinner/patient_ui/screens/success.dart';
+
+Future<bool> uploadFileForUser(PlatformFile? file) async {
+  try {
+    final userId = FirebaseAuth.instance.currentUser;
+    final storageRef = FirebaseStorage.instance.ref();
+    final fileName = file!.name; // Use PlatformFile's name property
+    final filePath = file.path; // Use PlatformFile's path property
+
+    // Convert PlatformFile to File using filePath
+    File fileToUpload = File(filePath!);
+
+     final uploadRef = storageRef.child("medicalFiles/$userId/$fileName");
+    await uploadRef.putFile(fileToUpload); // Pass the File object to putFile
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 class formulaire extends StatefulWidget {
   static const String frm = "_formulaire";
 
@@ -456,10 +487,24 @@ class _formulaireState extends State<formulaire> {
                   MyButton(
                       color: Colors.blue,
                       title: ('Done'),
-                      onPressed: () {
+                      onPressed: ()async {
                         if (formstate.currentState!.validate()) {
-                          Navigator.pushNamed(context, success.frm);
-                        }
+                    //   int age = int.parse(agecontroller.text);
+                      String gender = selectitem ?? 'Male';   
+                       bool success = await   uploadFileForUser(selectedFile) as bool;
+                       print("$success  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+                         submitForm(
+                          age : agecontroller.text, gender:  gender,
+      fullName: fullnamecontroller.text,
+    //  age: agecontroller.text,
+      phoneNumber: phonenumbercontroller.text,
+      medicalPrescription: medicalprescriptioncontroller.text,
+      currentMedications: currentmedicationscontroller.text,
+      dateOfSymptoms: dateofsympcontroller.text,
+      illnessesAndSurgeries: illnessescontroller.text,
+      allergyHistory: allergycontroller.text,
+    );
+                           }
                       }),
                   SizedBox(
                     height: screenHeight * 0.03,
@@ -474,4 +519,4 @@ class _formulaireState extends State<formulaire> {
   }
 }
 
-// NEW CODE
+            
