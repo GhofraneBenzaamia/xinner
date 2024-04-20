@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:xinner/patient_ui/screens/home.dart';
 import 'package:xinner/patient_ui/screens/formulaire.dart';
 import 'package:xinner/patient_ui/screens/notification_page.dart';
-import 'package:xinner/patient_ui/screens/profile.dart';
 import 'package:xinner/patient_ui/screens/doctor.dart';
 import 'package:xinner/patient_ui/screens/profile/UserSetting.dart';
 
