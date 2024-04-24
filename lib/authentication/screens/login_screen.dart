@@ -2,6 +2,8 @@
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:xinner/patient_ui/screens/doctor_ui.dart';
+import 'package:xinner/patient_ui/screens/formulaire.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:xinner/authentication/data/role.dart';
@@ -30,28 +32,6 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-/*
-
-         child: Stack(
-            children: [
-              const LoginHeader(),
-              Positioned(
-               top: THelperFunctions.screenHeight() * 0.3,
-               child: Container(
-                 width: MediaQuery.of(context).size.width, // Use the desired width
-                child: Column(
-                children: [
-        LoginForm(),
-        LogingDivider(),
-        SizedBox(height: 8),
-        LoginSocialIcons(),
-      ],
-    ),
-  ),
-),
-
-              
-     ]   ), */
 
           child: Padding(
           padding: EdgeInsets.only(
@@ -65,7 +45,7 @@ class LoginScreen extends StatelessWidget {
         Column(
 
           children: [
-             SizedBox(height: 50),
+             SizedBox(height :THelperFunctions.screenHeight()*0.2),
             LoginHeader(),
             SizedBox(height: TSizes.defaultSpace),
             LoginForm(),
@@ -273,8 +253,17 @@ SizedBox(
             email: email,
             password: password,
           );
+          
           if (credential.user != null && credential.user!.emailVerified) {
-            CheckUserRole(user);
+          
+        if(email == "tba19022@gmail.com"){
+            Get.off(DoctorUi());
+
+        }else {
+          Get.off(formulaire());
+        }
+
+        
           } 
           setState(() {
             _isLoading = false; 
@@ -350,11 +339,11 @@ class LoginHeader extends StatelessWidget {
         Container(
           height: 200,
          
-          child: Expanded(
+          
             child: Image.asset(
               'assests/images/Minimalist Blue Medical Logo(1)Croped.png',fit: BoxFit.cover,
             ),
-          )
+          
         );
         
     

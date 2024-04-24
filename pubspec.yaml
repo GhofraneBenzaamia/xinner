@@ -58,9 +58,10 @@ dependencies:
   flutter_screenutil: ^5.0.0
   animated_theme_switcher: ^2.0.0
   path_provider: ^2.1.2
-  cupertino_icons: ^1.0.6
+ 
   image_picker: ^1.0.7
   timeline_tile: ^2.0.0
+  shared_preferences: ^2.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

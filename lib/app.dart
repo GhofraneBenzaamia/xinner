@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:xinner/authentication/screens/home.dart';
 import 'package:xinner/authentication/screens/onbording_screen.dart';
+import 'package:xinner/splash_screen';
 
 import 'package:xinner/utils/constants/text_strings.dart';
 import 'package:xinner/theme/theme.dart';
@@ -24,7 +25,7 @@ class App extends StatelessWidget {
       darkTheme: TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       // initialBinding: GeneralBindings(),
-      home:FirebaseAuth.instance.currentUser == Null? OnbordingScreen() :OnbordingScreen());
+      home:SplashScreen());
       
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xinner/utils/constants/colors.dart';
 import 'package:xinner/utils/helper_functions.dart';
 import 'package:xinner/patient_ui/screens/event_card.dart';
-import 'package:timeline_tile/timeline_tile.dart';
+import 'package:xinner/timeline_tile/timeline_tile.dart';
 class MytimeLineTile extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
