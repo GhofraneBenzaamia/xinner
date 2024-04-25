@@ -22,7 +22,7 @@ class MyButton extends StatelessWidget {
 
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: const Color.fromARGB(255, 4, 135, 242),
+          color: Color(0xFF106163),
         ),
         child: MaterialButton(
           onPressed: onPressed,
