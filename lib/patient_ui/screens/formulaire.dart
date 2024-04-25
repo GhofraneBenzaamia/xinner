@@ -144,7 +144,7 @@ class _formulaireState extends State<formulaire> {
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: Colors.blue)),
+                                borderSide: BorderSide(color: Color(0xFF106163),)),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -181,7 +181,7 @@ class _formulaireState extends State<formulaire> {
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(color: Colors.blue)),
+                                    borderSide: BorderSide(color: Color(0xFF106163),)),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -211,7 +211,7 @@ class _formulaireState extends State<formulaire> {
                               hintStyle: TextStyle(fontWeight: FontWeight.bold),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: Colors.blue)),
+                                  borderSide: BorderSide(color: Color(0xFF106163),)),
                               border: InputBorder.none,
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -270,7 +270,7 @@ class _formulaireState extends State<formulaire> {
                             prefixIcon: Icon(Icons.phone_android),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: Colors.blue)),
+                                borderSide: BorderSide(color: Color(0xFF106163),)),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -303,7 +303,7 @@ class _formulaireState extends State<formulaire> {
                           prefixIcon: Icon(Icons.medication_sharp),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Color(0xFF106163),)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -340,7 +340,7 @@ class _formulaireState extends State<formulaire> {
                           prefixIcon: Icon(Icons.medical_services),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Color(0xFF106163),)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -377,7 +377,7 @@ class _formulaireState extends State<formulaire> {
                           prefixIcon: Icon(Icons.medical_services_outlined),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Color(0xFF106163),)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -414,7 +414,7 @@ class _formulaireState extends State<formulaire> {
                           prefixIcon: Icon(Icons.medical_information_sharp),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Color(0xFF106163),)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -470,7 +470,7 @@ class _formulaireState extends State<formulaire> {
                     style: ElevatedButton.styleFrom(
                       surfaceTintColor: Colors.black,
                       elevation: 5,
-                      shadowColor: Colors.blue,
+                      shadowColor:Color(0xFF106163),
                       backgroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth *
@@ -491,7 +491,7 @@ class _formulaireState extends State<formulaire> {
                     height: screenHeight * 0.035,
                   ),
                   MyButton(
-                      color: Colors.blue,
+                      color: Color(0xFF106163),
                       title: ('Done'),
                       onPressed: ()async {
                         if (formstate.currentState!.validate()) {
