@@ -50,7 +50,7 @@ class _successState extends State<success> {
 
                   child: Icon(
                     Icons.check_circle,
-                    color: Colors.green,
+                    color: Color(0xFF106163),
                     size: screenWidth * 0.2, // Adjust the factor as needed
                   ),
                 ),
@@ -74,7 +74,7 @@ class _successState extends State<success> {
               'and notify you shortly',
               style: TextStyle(
                   fontSize: screenWidth * 0.05,
-                  color: Color.fromARGB(255, 4, 179, 132),
+                  color: Color(0xFF106163),
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -84,9 +84,9 @@ class _successState extends State<success> {
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
               child: MaterialButton(
                 onPressed: () {},
-                color: Colors.blue,
+                color: color: Color(0xFF106163),
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                splashColor: Colors.blue,
+                splashColor: color: Color(0xFF106163),
                 minWidth: screenWidth * 0.1,
                 height: screenHeight * 0.06,
                 shape: RoundedRectangleBorder(
