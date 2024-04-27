@@ -1,5 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:xinner/patient_ui/screens/doctor_ui.dart';
+import 'package:xinner/patient_ui/screens/formulaire.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:xinner/authentication/data/role.dart';
@@ -32,29 +34,6 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-/*
-
-         child: Stack(
-            children: [
-              const LoginHeader(),
-              Positioned(
-               top: THelperFunctions.screenHeight() * 0.3,
-               child: Container(
-                 width: MediaQuery.of(context).size.width, // Use the desired width
-                child: Column(
-                children: [
-        LoginForm(),
-        LogingDivider(),
-        SizedBox(height: 8),
-        LoginSocialIcons(),
-      ],
-    ),
-  ),
-),
-
-              
-     ]   ), */
-
           child: Padding(
         padding: EdgeInsets.only(
           //top: 3,
@@ -64,7 +43,7 @@ class LoginScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: THelperFunctions.screenHeight() * 0.2),
             LoginHeader(),
             SizedBox(height: TSizes.defaultSpace),
             LoginForm(),
@@ -316,6 +295,77 @@ class LoginFormState extends State<LoginForm> {
             },
           ),
 
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () async {
+                setState(() {
+                  _isLoading = true; // Show the progress indicator
+                });
+
+                if (formState.currentState!.validate()) {
+                  try {
+                    final credential =
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+
+                    if (credential.user != null &&
+                        credential.user!.emailVerified) {
+                      if (email == "tba19022@gmail.com") {
+                        Get.off(DoctorUi());
+                      } else {
+                        Get.off(formulaire());
+                      }
+                    }
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  } on FirebaseAuthException catch (e) {
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    if (e.code == 'user-not-found') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text('User not found '),
+                        ),
+                      );
+                    } else if (e.code == 'wrong-password') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text('Wrong password!'),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor: Colors.red,
+                          content:
+                              const Text('Authentication error , try later'),
+                        ),
+                      );
+                    }
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text('email not verified'),
+                    ),
+                  );
+                  // Handle scenario where email is not verified or user is null
+                }
+              },
+              child: _isLoading
+                  ? const CircularProgressIndicator() // Show the progress indicator
+                  : const Text("SignIn"),
+            ),
+          ),
+
           const SizedBox(height: 8),
           TextButton(
               onPressed: () {
@@ -336,10 +386,11 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 200,
-        child: Image.asset(
-          'assests/images/Minimalist Blue Medical Logo(1)Croped.png',
-          fit: BoxFit.cover,
-        ));
+      height: 200,
+      child: Image.asset(
+        'assests/images/Minimalist Blue Medical Logo(1)Croped.png',
+        fit: BoxFit.cover,
+      ),
+    );
   }
 }

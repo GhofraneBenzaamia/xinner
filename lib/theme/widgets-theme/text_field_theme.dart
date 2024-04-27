@@ -11,6 +11,7 @@ class TTextFormFieldTheme {
     errorMaxLines: 3,
     prefixIconColor: TColors.darkGrey,
     suffixIconColor: TColors.darkGrey,
+    
     // constraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
     labelStyle: const TextStyle().copyWith(fontSize: TSizes.fontSizeMd, color: TColors.black),
     hintStyle: const TextStyle().copyWith(fontSize: TSizes.fontSizeSm, color: TColors.black),

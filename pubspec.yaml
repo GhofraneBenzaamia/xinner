@@ -2,7 +2,7 @@ name: xinner
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ">=3.2.6 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -61,6 +60,7 @@ dependencies:
   image_picker: ^1.0.7
   timeline_tile: ^2.0.0
   webview_flutter: ^2.8.0
+  shared_preferences: ^2.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,15 +71,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
- 
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -115,7 +112,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-  
+
   #--------------- LOCAL ASSETS ------------------#
   assets:
     - assests/images/facebook-icon.png
@@ -123,16 +120,16 @@ flutter:
     - assests/images/patient.png
 
     - assests/images/sammy-line-man-receives-a-mail.png
-   
+
     - assests/images/pict.png
     - assests/images/lucker.png
 
     - assests/images/sammy-line-success.png
 
-    - assests/images/CT scan-amico.png 
+    - assests/images/CT scan-amico.png
     - assests/images/Doctors-pana.png
     - assests/images/Radiography-amico(1).png
- 
+
     - assests/images/Minimalist Blue Medical Logo(1)Croped.png
     - assests/images/doctor.png
     - assests/images/picture1.png
@@ -140,7 +137,15 @@ flutter:
     - assests/images/picture3.png
     - assests/images/picture4.png
     - assests/images/picture5.png
-
+    - assests/images/Ct.jpg
+    - assests/images/Eco.jpeg
+    - assests/images/irm.jpeg
+    - assests/images/mammo.jpeg
+    - assests/images/Mammo.jpeg
+    - assests/images/ph.jpeg
+    - assests/images/photo.jpeg
+    - assests/images/xray.jpeg
+    - assests/images/photo1.jpeg
 
   #--------------- LOCAL FONTS ------------------#
   fonts:
