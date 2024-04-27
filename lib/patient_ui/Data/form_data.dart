@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:xinner/patient_ui/screens/success.dart';
 import 'package:get/get.dart';
 void submitForm({
+  required String fileNme,
+  required String uid,
   required String age,
   required String fullName,
   required String gender,
@@ -20,6 +22,9 @@ void submitForm({
 
   // Add the medical prescription URL along with other form data to Firestore
   await  appointments.add({
+    'gender': gender,
+    'fieName':fileNme,
+    'id':uid,
     'fullName': fullName,
     'age': age,
     'phoneNumber': phoneNumber,
@@ -39,4 +44,3 @@ void submitForm({
     // Show error message or handle error accordingly
   });
 }
-
