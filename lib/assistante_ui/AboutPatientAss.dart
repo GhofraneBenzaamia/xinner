@@ -25,7 +25,7 @@ final TextEditingController _tController = TextEditingController();
           spaceBetween(),
           InformationsUiA(
               infos: infos,
-              userImage:"assests/images/photo.jpeg"
+              userImage:"assests/images/photo1.jpeg"
           ), 
          message(),
          spaceBetween(),
