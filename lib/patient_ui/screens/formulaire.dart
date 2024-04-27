@@ -16,9 +16,12 @@ import 'package:xinner/utils/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:xinner/patient_ui/screens/success.dart';
 
-Future<bool> uploadFileForUser(PlatformFile? file) async {
+import 'package:uuid/uuid.dart';
+
+final userId = Uuid().v4();
+
+Future<String> uploadFileForUser(PlatformFile? file) async {
   try {
-    final userId = FirebaseAuth.instance.currentUser;
     final storageRef = FirebaseStorage.instance.ref();
     final fileName = file!.name; // Use PlatformFile's name property
     final filePath = file.path; // Use PlatformFile's path property
@@ -28,10 +31,10 @@ Future<bool> uploadFileForUser(PlatformFile? file) async {
 
     final uploadRef = storageRef.child("medicalFiles/$userId/$fileName");
     await uploadRef.putFile(fileToUpload); // Pass the File object to putFile
-    return true;
+    return fileName;
   } catch (e) {
     print(e);
-    return false;
+    return " false";
   }
 }
 
@@ -509,11 +512,13 @@ class _formulaireState extends State<formulaire> {
                         if (formstate.currentState!.validate()) {
                           //   int age = int.parse(agecontroller.text);
 
-                          bool success =
-                              await uploadFileForUser(selectedFile) as bool;
+                          String fileName =
+                              await uploadFileForUser(selectedFile);
                           print(
                               "$success  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
                           submitForm(
+                            fileNme: fileName,
+                            uid: userId,
                             age: agecontroller.text, gender: selectitem!,
                             fullName: fullnamecontroller.text,
                             //  age: agecontroller.text,
