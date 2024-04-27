@@ -140,6 +140,14 @@ flutter:
     - assests/images/picture3.png
     - assests/images/picture4.png
     - assests/images/picture5.png
+    - assests/images/Ct.jpg
+    - assests/images/Eco.jpeg
+    - assests/images/irm.jpeg
+    - assests/images/mammo.jpeg
+    - assests/images/Mammo.jpeg
+    - assests/images/ph.jpeg
+    - assests/images/photo.jpeg
+    - assests/images/xray.jpeg
 
 
   #--------------- LOCAL FONTS ------------------#
