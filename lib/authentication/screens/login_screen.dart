@@ -295,76 +295,76 @@ class LoginFormState extends State<LoginForm> {
             },
           ),
 
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () async {
-                setState(() {
-                  _isLoading = true; // Show the progress indicator
-                });
+          // SizedBox(
+          //   width: double.infinity,
+          //   child: ElevatedButton(
+          //     onPressed: () async {
+          //       setState(() {
+          //         _isLoading = true; // Show the progress indicator
+          //       });
 
-                if (formState.currentState!.validate()) {
-                  try {
-                    final credential =
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email,
-                      password: password,
-                    );
+          //       if (formState.currentState!.validate()) {
+          //         try {
+          //           final credential =
+          //               await FirebaseAuth.instance.signInWithEmailAndPassword(
+          //             email: email,
+          //             password: password,
+          //           );
 
-                    if (credential.user != null &&
-                        credential.user!.emailVerified) {
-                      if (email == "tba19022@gmail.com") {
-                        Get.off(DoctorUi());
-                      } else {
-                        Get.off(formulaire());
-                      }
-                    }
-                    setState(() {
-                      _isLoading = false;
-                    });
-                  } on FirebaseAuthException catch (e) {
-                    setState(() {
-                      _isLoading = false;
-                    });
-                    if (e.code == 'user-not-found') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text('User not found '),
-                        ),
-                      );
-                    } else if (e.code == 'wrong-password') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text('Wrong password!'),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.red,
-                          content:
-                              const Text('Authentication error , try later'),
-                        ),
-                      );
-                    }
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text('email not verified'),
-                    ),
-                  );
-                  // Handle scenario where email is not verified or user is null
-                }
-              },
-              child: _isLoading
-                  ? const CircularProgressIndicator() // Show the progress indicator
-                  : const Text("SignIn"),
-            ),
-          ),
+          //           if (credential.user != null &&
+          //               credential.user!.emailVerified) {
+          //             if (email == "tba19022@gmail.com") {
+          //               Get.off(DoctorUi());
+          //             } else {
+          //               Get.off(formulaire());
+          //             }
+          //           }
+          //           setState(() {
+          //             _isLoading = false;
+          //           });
+          //         } on FirebaseAuthException catch (e) {
+          //           setState(() {
+          //             _isLoading = false;
+          //           });
+          //           if (e.code == 'user-not-found') {
+          //             ScaffoldMessenger.of(context).showSnackBar(
+          //               const SnackBar(
+          //                 backgroundColor: Colors.red,
+          //                 content: Text('User not found '),
+          //               ),
+          //             );
+          //           } else if (e.code == 'wrong-password') {
+          //             ScaffoldMessenger.of(context).showSnackBar(
+          //               const SnackBar(
+          //                 backgroundColor: Colors.red,
+          //                 content: Text('Wrong password!'),
+          //               ),
+          //             );
+          //           } else {
+          //             ScaffoldMessenger.of(context).showSnackBar(
+          //               const SnackBar(
+          //                 backgroundColor: Colors.red,
+          //                 content:
+          //                     const Text('Authentication error , try later'),
+          //               ),
+          //             );
+          //           }
+          //         }
+          //       } else {
+          //         ScaffoldMessenger.of(context).showSnackBar(
+          //           const SnackBar(
+          //             backgroundColor: Colors.red,
+          //             content: Text('email not verified'),
+          //           ),
+          //         );
+          //         // Handle scenario where email is not verified or user is null
+          //       }
+          //     },
+          //     child: _isLoading
+          //         ? const CircularProgressIndicator() // Show the progress indicator
+          //         : const Text("SignIn"),
+          //   ),
+          // ),
 
           const SizedBox(height: 8),
           TextButton(

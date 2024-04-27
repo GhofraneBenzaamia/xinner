@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:xinner/authentication/screens/home.dart';
 import 'package:xinner/authentication/screens/login_screen.dart';
 import 'package:xinner/authentication/screens/onbording_screen.dart';
+import 'package:xinner/control_view.dart';
 import 'package:xinner/splash_screen';
 
 import 'package:xinner/utils/constants/text_strings.dart';
@@ -19,12 +20,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: TTexts.appName,
-        themeMode: ThemeMode.system,
-        theme: TAppTheme.lightTheme,
-        darkTheme: TAppTheme.darkTheme,
-        debugShowCheckedModeBanner: false,
-        // initialBinding: GeneralBindings(),
-        home: SplashScreen());
+      title: TTexts.appName,
+      themeMode: ThemeMode.system,
+      theme: TAppTheme.lightTheme,
+      darkTheme: TAppTheme.darkTheme,
+      debugShowCheckedModeBanner: false,
+      // initialBinding: GeneralBindings(),
+      // home: SplashScreen(),
+      home: ControlView(),
+    );
   }
 }

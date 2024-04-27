@@ -500,27 +500,25 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
   @override
   void initState() {
     super.initState();
-    _updateAppointmentDetails();
   }
 
   @override
   void didUpdateWidget(AppointmentDetails oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _updateAppointmentDetails();
   }
 
   void _updateAppointmentDetails() {
     switch (widget.appSit.appoState) {
-      case "confirmed":
-        appoiBox = confirmedAppoi(
-          widget.appSit.date ?? '',
-          widget.appSit.time ?? '',
-          widget.appSit.patientsNumBefore ?? 0,
-          widget.appSit.indications ?? '',
-          widget.appSit.price ?? 0,
-        );
-        containerColor = Color(0xFF106163).withOpacity(0.9);
-        break;
+      // case "confirmed":
+      //   appoiBox = confirmedAppoi(
+      //     widget.appSit.date ?? '',
+      //     widget.appSit.time ?? '',
+      //     widget.appSit.patientsNumBefore ?? 0,
+      //     widget.appSit.indications ?? '',
+      //     widget.appSit.price ?? 0,
+      //   );
+      // containerColor = Color(0xFF106163).withOpacity(0.9);
+      // break;
       case "pending":
         appoiBox = pendingAppoi();
         containerColor = Colors.orange.withOpacity(0.65);
@@ -634,59 +632,6 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
     );
   }
 */
-  Container confirmedAppoi(String date, String time, int patientsNumBefore,
-      String indications, int price) {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                "Confirmed appointment",
-                //    textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 21,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              IconButton(
-                //icon: Icon(Icons.info,size:23),
-                icon: Icon(
-                  Icons.arrow_forward,
-                  size: 28,
-                  color: Colors.white,
-                ),
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AppointmentDetailsPage(
-                        date: date,
-                        time: time,
-                        indications: indications,
-                        price: price,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-          SizedBox(height: 12),
-          // Include other appointment details here
-          // For example, you can call the `dateTime` method here
-          // Container(
-          //   child: dateTime(date, time, patientsNumBefore.toString()),
-          // ),
-          Container(
-            child: dateTime(date, time, patientsNumBefore.toString()),
-          ),
-        ],
-      ),
-    );
-  }
 
   Container pendingAppoi() {
     return Container(
@@ -817,76 +762,6 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
               fontSize: 16,
               fontWeight: FontWeight.w300,
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container dateTime(String date, String time, String patientsBefore) {
-    return Container(
-      width: 300,
-      height: 35,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        //border:Border.all(width:2),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Row(children: [
-              SizedBox(width: 3),
-              Icon(Icons.calendar_month, color: Color(0xFF106163)),
-              Text(
-                date,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF106163),
-                  fontSize: 12,
-                ),
-              ),
-            ]),
-          ),
-          Container(
-            color: const Color(0xFF106163),
-            width: 0.5,
-            height: 36,
-            margin: const EdgeInsets.only(right: 3),
-          ),
-          Expanded(
-            child: Row(children: [
-              SizedBox(width: 3),
-              Icon(Icons.access_time, color: Color(0xFF106163)),
-              Text(
-                textAlign: TextAlign.center,
-                time,
-                style: TextStyle(
-                  color: Color(0xFF106163),
-                  fontSize: 12,
-                ),
-              ),
-            ]),
-          ),
-          Container(
-            color: const Color(0xFF106163),
-            width: 0.5,
-            height: 36,
-            margin: const EdgeInsets.only(right: 3),
-          ),
-          Expanded(
-            child: Row(children: [
-              SizedBox(width: 3),
-              Icon(Icons.people, color: Color(0xFF106163)),
-              Text(
-                textAlign: TextAlign.center,
-                "$patientsBefore patients",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF106163),
-                ),
-              ),
-            ]),
           ),
         ],
       ),
