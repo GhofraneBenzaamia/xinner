@@ -148,7 +148,8 @@ flutter:
     - assests/images/ph.jpeg
     - assests/images/photo.jpeg
     - assests/images/xray.jpeg
-
+    - assests/images/photo1.jpeg
+ 
 
   #--------------- LOCAL FONTS ------------------#
   fonts:
