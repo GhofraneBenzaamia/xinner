@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xinner/assistante_ui/AboutPatientAss.dart';
 
 import 'package:xinner/authentication/screens/login_screen.dart';
 import 'package:xinner/controllers/auth_controller.dart';
@@ -15,7 +16,9 @@ class ControlView extends GetWidget<AuthController> {
       () {
         return (Get.find<AuthController>().user == null)
             ? const LoginScreen()
-            : BottomNavBar();
+            :
+            // what role is the user
+            BottomNavBar();
       },
     );
   }

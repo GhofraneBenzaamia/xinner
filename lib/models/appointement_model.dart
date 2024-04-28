@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AppointementModel {
-  late String age;
-  late String patientId;
-  late String fullName;
-  late String gender;
-  late String phoneNumber;
-  late String medicalPrescription;
-  late String currentMedications;
-  late String dateOfSymptoms;
-  late String illnessesAndSurgeries;
-  late String allergyHistory;
+  late int? age;
+  late String? id;
+  late String? patientId;
+  late String? fullName;
+  late String? gender;
+  late String? phoneNumber;
+  late String? medicalPrescription;
+  late String? currentMedications;
+  late String? dateOfSymptoms;
+  late String? illnessesAndSurgeries;
+  late String? allergyHistory;
+  late DateTime? appointmentDate;
+  late int? patients;
+  late int? price;
+  late String? indications;
   AppointementModel({
     required this.age,
     required this.fullName,
@@ -24,17 +29,25 @@ class AppointementModel {
     required this.allergyHistory,
   });
 
-  AppointementModel.fromJson(Map<dynamic, dynamic> map) {
+  AppointementModel.fromJson(dynamic map) {
+    if (map == null) {
+      return;
+    }
     age = map['age'];
-    fullName = map['fullname'];
+    fullName = map['fullName'];
     gender = map['gender'];
+    id = map['id'];
     patientId = map['patientId'];
     phoneNumber = map['phoneNumber'];
     medicalPrescription = map['medicalPrescriptionUrl'];
     currentMedications = map['currentMedications'];
     dateOfSymptoms = map['dateOfSymptoms'];
+    appointmentDate = map['appointmentDate'].toDate();
     illnessesAndSurgeries = map['illnessesAndSurgeries'];
     allergyHistory = map['allergyHistory'];
+    patients = map['patients'];
+    price = map['price'];
+    indications = map['indications'];
   }
 
   toJson() {

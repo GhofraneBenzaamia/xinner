@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:xinner/home/widgets.dart/articles_horizontal_list.dart';
 import 'package:xinner/home/widgets.dart/upcoming_appointment.dart';
 import 'package:xinner/utils/constants/my_constants.dart';
+
+import 'widgets.dart/services_horizontal_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,6 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: kHorizontalPadding, vertical: kVerticalPadding),
@@ -72,6 +76,33 @@ class HomePage extends StatelessWidget {
                   height: 12,
                 ),
                 UpcomingAppointment(),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Our services",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+                const SizedBox(height: 17),
+                ServicesHorizontalList(),
+                const SizedBox(height: 20),
+                Text(
+                  "Articles",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+                const SizedBox(height: 17),
+                ArticlesHorizontalList(),
+                const SizedBox(height: 60),
               ],
             ),
           ),

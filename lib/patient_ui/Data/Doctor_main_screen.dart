@@ -26,12 +26,12 @@ class DoctorScreen extends StatelessWidget {
             return Center(child: Text('No forms available'));
           }
 
-             List<Map<String, dynamic>> patientList = [];
+          List<Map<String, dynamic>> patientList = [];
           snapshot.data!.docs.forEach((document) {
             // Extract patient data from the document and add it to the patientList
             Map<String, dynamic> patientData = {
               'fullName': document.data()!['fullName'],
-            //  'age': document.data()!['age'],
+              //  'age': document.data()!['age'],
               // Add other patient data fields as needed
             };
             patientList.add(patientData);
@@ -42,14 +42,16 @@ class DoctorScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               // Display each patient as a ListTile
               return ListTile(
-                title: Text(patientList[index]['fullName']),textColor: Colors.black,
+                title: Text(patientList[index]['fullName']),
+                textColor: Colors.black,
                 // You can also display the patient's photo here if available
                 onTap: () {
                   // Navigate to the form details screen
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PatientFormDetailsScreen(patient: patientList[index]),
+                      builder: (context) =>
+                          PatientFormDetailsScreen(patient: patientList[index]),
                     ),
                   );
                 },
@@ -71,20 +73,20 @@ class PatientFormDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Extract form data from the patient map
-    String fullName = patient['fullName'];
-    String  dateOfSymptoms = patient['dateOfSymptoms'];
+    // String fullName = patient['fullName'];
+    // String dateOfSymptoms = patient['dateOfSymptoms'];
     // Extract other form fields as needed
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form Details - $fullName'),
+        title: Text('Form Details - '),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Name: $fullName'),
-            Text('dateOfSymptoms: $dateOfSymptoms'),
+            Text('Name'),
+            Text('dateOfSymptoms:'),
             // Display other form fields here
           ],
         ),
