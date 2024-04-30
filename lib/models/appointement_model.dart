@@ -15,6 +15,8 @@ class AppointementModel {
   late DateTime? appointmentDate;
   late int? patients;
   late int? price;
+  late int? status;
+  late String? fileName;
   late String? indications;
   AppointementModel({
     required this.age,
@@ -29,6 +31,20 @@ class AppointementModel {
     required this.allergyHistory,
   });
 
+  bool isSelected() {
+    if (status == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isRefused() {
+    if (status == 2) {
+      return true;
+    }
+    return false;
+  }
+
   AppointementModel.fromJson(dynamic map) {
     if (map == null) {
       return;
@@ -38,18 +54,21 @@ class AppointementModel {
     gender = map['gender'];
     id = map['id'];
     patientId = map['patientId'];
+    status = map['status'];
     phoneNumber = map['phoneNumber'];
     medicalPrescription = map['medicalPrescriptionUrl'];
     currentMedications = map['currentMedications'];
     dateOfSymptoms = map['dateOfSymptoms'];
-    appointmentDate = map['appointmentDate'].toDate();
+    appointmentDate = (status == 0 || status == 1 || status == 2)
+        ? null
+        : map['appointmentDate'].toDate();
     illnessesAndSurgeries = map['illnessesAndSurgeries'];
     allergyHistory = map['allergyHistory'];
     patients = map['patients'];
     price = map['price'];
     indications = map['indications'];
+    fileName = map['fileName'];
   }
-
   toJson() {
     return {
       'age': age,

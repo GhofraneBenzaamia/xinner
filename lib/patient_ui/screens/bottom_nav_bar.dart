@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:xinner/appointment/create_new_appointment.dart';
 
 import 'package:xinner/patient_ui/screens/home.dart';
-import 'package:xinner/patient_ui/screens/formulaire.dart';
+
 import 'package:xinner/patient_ui/screens/notification_page.dart';
 import 'package:xinner/patient_ui/screens/doctor.dart';
 import 'package:xinner/patient_ui/screens/profile/UserSetting.dart';
@@ -22,46 +23,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HomePage(),
     SettingPageUI(),
     NotificationScreen(),
-
     AppointScreen(),
+
     // NotificationScreen(),
   ];
-
-  void _onItemTapped(int index) {
-    debugPrint(index.toString());
-    setState(() {
-      switch (index) {
-        case 0:
-          // HomeScreen
-          _selectedIndex = 0;
-          break;
-        case 1:
-          // ProfileScreen
-          _selectedIndex = 1;
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => SettingPageUI()),
-          // );
-          break;
-        case 2:
-          // NotificationScreen
-          _selectedIndex = 2;
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => NotificationScreen()),
-        // );
-        // break;
-        case 3:
-          // AppointScreen
-          _selectedIndex = 3;
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => AppointScreen()),
-          // );
-          break;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => formulaire()),
+            MaterialPageRoute(builder: (context) => CreateNewAppointment()),
           );
         },
         child: Icon(Icons.add),
@@ -83,7 +48,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: (val) {
+          setState(() {
+            _selectedIndex = val;
+          });
+        },
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -92,7 +61,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
-            label: 'Info',
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications_none),
@@ -100,7 +69,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),
-            label: 'Profile',
+            label: 'Info',
           ),
         ],
       ),

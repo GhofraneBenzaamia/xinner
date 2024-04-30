@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:xinner/patient_ui/screens/formulaire.dart';
 
 // Doctor Screen Widget
 import 'package:flutter/material.dart';

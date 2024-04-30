@@ -1,7 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:xinner/control_view.dart';
 import 'package:xinner/patient_ui/screens/doctor_ui.dart';
-import 'package:xinner/patient_ui/screens/formulaire.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:xinner/authentication/data/role.dart';
@@ -20,7 +21,6 @@ import 'package:xinner/patient_ui/screens/profile/security.dart';
 import 'package:xinner/patient_ui/screens/profile/EditProfile.dart';
 import 'package:xinner/authentication/screens/sign_in_screen.dart';
 import 'package:xinner/authentication/screens/sucsses_screen.dart';
-import 'package:xinner/patient_ui/screens/formulaire.dart';
 
 import 'package:xinner/utils/constants/colors.dart';
 import 'package:xinner/utils/constants/sizes.dart';
@@ -77,7 +77,7 @@ class LoginSocialIcons extends StatelessWidget {
 
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
-    Get.off(formulaire());
+    Get.off(ControlView());
   }
 
   @override

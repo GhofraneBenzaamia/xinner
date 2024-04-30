@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xinner/Doctor/doctor_main_screen.dart';
 import 'package:xinner/assistante_ui/AboutPatientAss.dart';
 
 import 'package:xinner/authentication/screens/login_screen.dart';
 import 'package:xinner/controllers/auth_controller.dart';
+import 'package:xinner/patient_ui/Data/Doctor_main_screen.dart';
 import 'package:xinner/patient_ui/screens/bottom_nav_bar.dart';
 
 class ControlView extends GetWidget<AuthController> {
@@ -18,7 +20,9 @@ class ControlView extends GetWidget<AuthController> {
             ? const LoginScreen()
             :
             // what role is the user
-            BottomNavBar();
+            Get.find<AuthController>().user == "harzelli.yousra55@gmail.com"
+                ? DoctorMainScreen()
+                : BottomNavBar();
       },
     );
   }

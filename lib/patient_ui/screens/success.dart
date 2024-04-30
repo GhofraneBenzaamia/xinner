@@ -1,16 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class success extends StatefulWidget {
+class SuccessPage extends StatefulWidget {
   static const String frm = "success";
-  const success({super.key});
+  const SuccessPage({super.key});
 
   @override
-  State<success> createState() => _successState();
+  State<SuccessPage> createState() => _SuccessPageState();
 }
 
-class _successState extends State<success> {
+class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -19,7 +20,7 @@ class _successState extends State<success> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Finish',
+          'Successful',
           style: TextStyle(
             fontSize: screenWidth * 0.06,
             fontWeight: FontWeight.bold,
@@ -28,81 +29,79 @@ class _successState extends State<success> {
         centerTitle: true,
       ),
       body: SafeArea(
-          child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Appointment added successfully',
-                style: TextStyle(
-                  letterSpacing:
-                      screenWidth * 0.005, // Adjust the factor as needed
-                  fontSize: screenWidth * 0.05, // Adjust the factor as needed
-
-                  fontWeight: FontWeight.bold,
-                )),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal:
-                          screenWidth * 0.07), // Adjust the factor as needed
-
-                  child: Icon(
-                    Icons.check_circle,
-                    color: Color(0xFF106163),
-                    size: screenWidth * 0.2, // Adjust the factor as needed
-                  ),
-                ),
-                SizedBox(
-                    width: screenWidth * 0.004), // Adjust the factor as needed
-                Image.asset(
-                  'images/doc.jpg',
-                  width: screenWidth * 0.6, // 31.25% of the screen width
-                  height: screenHeight * 0.5, // 62.5% of the screen height
-                ),
-              ],
-            ),
-            Text(
-              'the doctor will verify your information ',
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('Appointment added successfully',
               style: TextStyle(
-                  fontSize: screenWidth * 0.05,
-                  color: Color.fromARGB(255, 4, 179, 132),
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'and notify you shortly',
-              style: TextStyle(
-                  fontSize: screenWidth * 0.05,
+                // Adjust the factor as needed
+                fontSize: 20, // Adjust the factor as needed
+
+                fontWeight: FontWeight.bold,
+              )),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal:
+                        screenWidth * 0.07), // Adjust the factor as needed
+
+                child: Icon(
+                  Icons.check_circle,
                   color: Color(0xFF106163),
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: screenHeight * 0.05625, // 5.625% of the screen height
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
-              child: MaterialButton(
-                onPressed: () {},
-                color: Color(0xFF106163),
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                splashColor: Color(0xFF106163),
-                minWidth: screenWidth * 0.1,
-                height: screenHeight * 0.06,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: Text(
-                  "Done",
-                  style: TextStyle(
-                      backgroundColor: Colors.blue,
-                      fontSize: screenWidth * 0.05,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  size: 80, // Adjust the factor as needed
                 ),
               ),
-            )
-          ],
-        ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'the doctor will verify your information ',
+            style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 4, 179, 132),
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'and notify you shortly',
+            style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 4, 179, 132),
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: screenHeight * 0.05625, // 5.625% of the screen height
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
+            child: MaterialButton(
+              onPressed: () {
+                Get.back();
+              },
+              color: Color(0xFF106163),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              splashColor: Color(0xFF106163),
+              minWidth: screenWidth * 0.1,
+              height: screenHeight * 0.06,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              child: Text(
+                "Done",
+                style: TextStyle(
+                    fontSize: screenWidth * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          )
+        ],
       )),
     );
   }
