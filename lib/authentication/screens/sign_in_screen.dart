@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:xinner/appointment/create_new_appointment.dart';
 import 'package:xinner/authentication/screens/login_screen.dart';
 import 'package:xinner/authentication/screens/email_verification_screen.dart';
 import 'package:xinner/utils/constants/text_strings.dart';
@@ -66,10 +68,9 @@ class SignUpFormState extends State<SignUpForm> {
     try {
       User? user = _auth.currentUser;
       if (user != null) {
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-          'name': fullName,
-          'email': email,
-        });
+        String? token = await FirebaseMessaging.instance.getToken();
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+            {'name': fullName, 'email': email, 'id': userId, 'token': token});
       }
     } catch (e) {
       print('Error creating user document: $e');

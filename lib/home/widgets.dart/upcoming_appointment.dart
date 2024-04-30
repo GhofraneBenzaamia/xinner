@@ -93,6 +93,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
         stream: FirebaseFirestore.instance
             .collection('forms')
             .where("patientId", isEqualTo: FireStoreUser.getCurrentUser()!.uid)
+            .where("status", isLessThanOrEqualTo: 2)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -121,152 +122,155 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
             child: appointmentModel.status == 0
                 ? WeReceivedYourAppointement(
                     appointementModel: appointmentModel)
-                : Column(
-                    children: [
-                      Row(
+                : appointmentModel.status == 2
+                    ? AppointementDeclined(appointementModel: appointmentModel)
+                    : Column(
                         children: [
-                          const Text(
-                            "✅️ Confirmed appointment",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Expanded(
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.arrow_forward,
-                                size: 28,
-                                color: Colors.white,
-                              ),
-                              color: Colors.white,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        AppointmentDetailsPage(
-                                      appointment: appointmentModel,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        child: Container(
-                          height: 35,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(18),
-                            //border:Border.all(width:2),
-                          ),
-                          child: Row(
+                          Row(
                             children: [
+                              const Text(
+                                "✅️ Confirmed appointment",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               Expanded(
-                                child: Row(children: [
-                                  SizedBox(width: 3),
-                                  Icon(Icons.calendar_month,
-                                      color: Color(0xFF106163)),
-                                  Text(
-                                    formatMyDate(
-                                        appointmentModel.appointmentDate),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xFF106163),
-                                      fontSize: 12,
-                                    ),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_forward,
+                                    size: 28,
+                                    color: Colors.white,
                                   ),
-                                ]),
-                              ),
-                              Container(
-                                color: const Color(0xFF106163),
-                                width: 0.5,
-                                height: 36,
-                                margin: const EdgeInsets.only(right: 3),
-                              ),
-                              Expanded(
-                                child: Row(children: [
-                                  SizedBox(width: 3),
-                                  Icon(Icons.access_time,
-                                      color: Color(0xFF106163)),
-                                  Text(
-                                    textAlign: TextAlign.center,
-                                    formatMyTime(
-                                        appointmentModel.appointmentDate),
-                                    style: TextStyle(
-                                      color: Color(0xFF106163),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ]),
-                              ),
-                              Container(
-                                color: const Color(0xFF106163),
-                                width: 0.5,
-                                height: 36,
-                                margin: const EdgeInsets.only(right: 3),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    SizedBox(width: 3),
-                                    Icon(Icons.people,
-                                        color: Color(0xFF106163)),
-                                    StreamBuilder<int>(
-                                      stream: countAppointmentsBeforeMeStream(
-                                          appointmentModel.patientId!),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<int> snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Text(
-                                            'Loading...', // Show loading indicator while waiting for data
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFF106163),
-                                            ),
-                                          );
-                                        } else if (snapshot.hasError) {
-                                          return Text(
-                                            'Error', // Show error if any
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFF106163),
-                                            ),
-                                          );
-                                        } else {
-                                          return Text(
-                                            snapshot.data == 0
-                                                ? "Your turn !"
-                                                : '${snapshot.data ?? 0} patients', // Display the count
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: snapshot.data == 0
-                                                  ? Colors.red
-                                                  : Color(0xFF106163),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ],
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AppointmentDetailsPage(
+                                          appointment: appointmentModel,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                          const SizedBox(height: 12),
+                          Container(
+                            child: Container(
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(18),
+                                //border:Border.all(width:2),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(children: [
+                                      SizedBox(width: 3),
+                                      Icon(Icons.calendar_month,
+                                          color: Color(0xFF106163)),
+                                      Text(
+                                        formatMyDate(
+                                            appointmentModel.appointmentDate),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF106163),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                  Container(
+                                    color: const Color(0xFF106163),
+                                    width: 0.5,
+                                    height: 36,
+                                    margin: const EdgeInsets.only(right: 3),
+                                  ),
+                                  Expanded(
+                                    child: Row(children: [
+                                      SizedBox(width: 3),
+                                      Icon(Icons.access_time,
+                                          color: Color(0xFF106163)),
+                                      Text(
+                                        textAlign: TextAlign.center,
+                                        formatMyTime(
+                                            appointmentModel.appointmentDate),
+                                        style: TextStyle(
+                                          color: Color(0xFF106163),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                  Container(
+                                    color: const Color(0xFF106163),
+                                    width: 0.5,
+                                    height: 36,
+                                    margin: const EdgeInsets.only(right: 3),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        SizedBox(width: 3),
+                                        Icon(Icons.people,
+                                            color: Color(0xFF106163)),
+                                        StreamBuilder<int>(
+                                          stream:
+                                              countAppointmentsBeforeMeStream(
+                                                  appointmentModel.patientId!),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<int> snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Text(
+                                                'Loading...', // Show loading indicator while waiting for data
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF106163),
+                                                ),
+                                              );
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                'Error', // Show error if any
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF106163),
+                                                ),
+                                              );
+                                            } else {
+                                              return Text(
+                                                snapshot.data == 0
+                                                    ? "Your turn !"
+                                                    : '${snapshot.data ?? 0} patients', // Display the count
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: snapshot.data == 0
+                                                      ? Colors.red
+                                                      : Color(0xFF106163),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
           );
         });
   }
@@ -284,6 +288,40 @@ class WeReceivedYourAppointement extends StatelessWidget {
           children: [
             const Text(
               "✅️ appointement Received",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 21,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          "We have received your apppointement, the doctor will look at it and set for you a date and time to come",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class AppointementDeclined extends StatelessWidget {
+  const AppointementDeclined({super.key, required this.appointementModel});
+  final AppointementModel appointementModel;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            const Text(
+              "❌ appointement Refused",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 21,
@@ -314,7 +352,7 @@ class WeReceivedYourAppointement extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         const Text(
-          "We have received your apppointement, the doctor will look at it and set for you a date and time to come",
+          "We have refused your apppointement, click on the arrow to display the reason",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,

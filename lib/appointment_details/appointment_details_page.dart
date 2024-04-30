@@ -14,64 +14,64 @@ class AppointmentDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appointment Details'),
+        title: Text(
+          'Appointment Details',
+          style: TextStyle(fontSize: 20),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Date:',
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  formatMyDate(appointment.appointmentDate),
-                  style: TextStyle(fontSize: 17),
-                ),
-              ],
-            ),
+            if (appointment.appointmentDate != null)
+              Text(
+                'Date : ${formatMyDate(appointment.appointmentDate)}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            if (appointment.appointmentDate != null) SizedBox(height: 10),
+            if (appointment.appointmentDate != null)
+              Text(
+                'Time : ${formatMyTime(appointment.appointmentDate)}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            if (appointment.price != null)
+              Row(
+                children: [
+                  SizedBox(height: 10),
+                  Text(
+                    'Price:',
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    appointment.price.toString(),
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ],
+              ),
             SizedBox(height: 10),
-            Row(
-              children: [
-                Text(
-                  'Time:',
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  formatMyTime(appointment.appointmentDate),
-                  style: TextStyle(fontSize: 17),
-                ),
-              ],
-            ),
+            if (appointment.illnessesAndSurgeries != null)
+              Text(
+                'Illnesses and surgeries: ${appointment.illnessesAndSurgeries.toString()}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             SizedBox(height: 10),
-            Row(
-              children: [
-                Text(
-                  'Price:',
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  appointment.price.toString(),
-                  style: TextStyle(fontSize: 17),
-                ),
-              ],
-            ),
+            if (appointment.dateOfSymptoms != null)
+              Text(
+                'Date of symptoms: ${appointment.illnessesAndSurgeries.toString()}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             SizedBox(height: 10),
-            Text(
-              'Indications:',
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-            ),
+            if (appointment.illnessesAndSurgeries != null)
+              Text(
+                'Refuse Reason : ${appointment.reasonForRefuse.toString()}',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
+              ),
             SizedBox(height: 5),
-            Text(
-              appointment.indications.toString(),
-              style: TextStyle(fontSize: 17),
-            ),
           ],
         ),
       ),

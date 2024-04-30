@@ -21,6 +21,7 @@ class ControlView extends GetWidget<AuthController> {
             :
             // what role is the user
             Get.find<AuthController>().user == "harzelli.yousra55@gmail.com"
+                // Get.find<AuthController>().user == "gmysto7@gmail.com"
                 ? DoctorMainScreen()
                 : BottomNavBar();
       },

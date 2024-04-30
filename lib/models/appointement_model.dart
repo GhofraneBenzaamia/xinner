@@ -17,7 +17,8 @@ class AppointementModel {
   late int? price;
   late int? status;
   late String? fileName;
-  late String? indications;
+
+  String? reasonForRefuse;
   AppointementModel({
     required this.age,
     required this.fullName,
@@ -32,7 +33,7 @@ class AppointementModel {
   });
 
   bool isSelected() {
-    if (status == 1) {
+    if (status == 3) {
       return true;
     }
     return false;
@@ -59,15 +60,16 @@ class AppointementModel {
     medicalPrescription = map['medicalPrescriptionUrl'];
     currentMedications = map['currentMedications'];
     dateOfSymptoms = map['dateOfSymptoms'];
-    appointmentDate = (status == 0 || status == 1 || status == 2)
+    appointmentDate = (status == 0 || status == 3 || status == 2)
         ? null
         : map['appointmentDate'].toDate();
     illnessesAndSurgeries = map['illnessesAndSurgeries'];
     allergyHistory = map['allergyHistory'];
     patients = map['patients'];
     price = map['price'];
-    indications = map['indications'];
+
     fileName = map['fileName'];
+    reasonForRefuse = map['reasonForRefuse'];
   }
   toJson() {
     return {

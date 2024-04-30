@@ -60,7 +60,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
+            icon: Icon(Icons.person_outline_rounded),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
@@ -68,7 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_rounded),
+            icon: Icon(Icons.info_outline),
             label: 'Info',
           ),
         ],

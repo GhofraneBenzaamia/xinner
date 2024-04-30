@@ -1,5 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:xinner/control_view.dart';
 import 'package:xinner/patient_ui/screens/doctor_ui.dart';
 
@@ -138,9 +140,16 @@ class LogingDivider extends StatelessWidget {
           indent: 60,
           endIndent: 5,
         )),
-        Text(
-          "Or sign in with",
-          style: Theme.of(context).textTheme.labelMedium,
+        GestureDetector(
+          onTap: () async {
+            await FirebaseMessaging.instance
+                .getToken()
+                .then((value) => print("DEVICE TOKEN :" + value.toString()));
+          },
+          child: Text(
+            "Or sign in with",
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
         ),
         Flexible(
             child: Divider(

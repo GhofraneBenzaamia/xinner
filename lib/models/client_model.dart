@@ -38,7 +38,7 @@ class UserModel {
 
   toJson() {
     return {
-      'uid': userId,
+      'id': userId,
       'email': email,
       'name': username,
       'phoneNumber': phoneNumber,

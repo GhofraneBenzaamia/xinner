@@ -66,6 +66,7 @@ dependencies:
   webview_flutter: ^4.7.0
   shared_preferences: ^2.2.3
   cached_network_image: ^3.3.1
+  firebase_messaging: ^14.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -145,7 +146,6 @@ flutter:
     - assests/images/Eco.jpeg
     - assests/images/irm.jpeg
     - assests/images/mammo.jpeg
-    - assests/images/Mammo.jpeg
     - assests/images/ph.jpeg
     - assests/images/photo.jpeg
     - assests/images/xray.jpeg

@@ -7,6 +7,7 @@ import 'package:xinner/Doctor/media_display_widget.dart';
 import 'package:xinner/models/appointement_model.dart';
 import 'package:xinner/utils/constants/my_constants.dart';
 import 'package:xinner/widgets/custom_text_field_widget.dart';
+import 'package:xinner/widgets/refuse_dialog.dart';
 
 class PatientDetailsScreen extends StatelessWidget {
   final AppointementModel patientData;
@@ -121,101 +122,122 @@ class PatientDetailsScreen extends StatelessWidget {
                   child: Text('View Patient Prescription'),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              CheckBoxWidget(
-                function: (val) {
-                  urgetCase = val;
-                  print(val);
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Enter the price for this appointement"),
-              SizedBox(
-                height: 10,
-              ),
-              Form(
-                key: _formKey,
-                child: CustomTextField(
-                  hintText: "Price in DA",
-                  keyboardType: TextInputType.number,
-                  onSaved: (val) {
-                    price = val!;
-                  },
-                  validator: (val) {
-                    if (val == "") {
-                      return "You must enter the price";
-                    } else if (val == null) {
-                      return "You must enter the price";
-                    } else if (val.isEmpty) {
-                      return "You must enter the price";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.green),
+
+              patientData.status == 2
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: Text(
+                        "You refused this appointement",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 18,
+                        ),
                       ),
-                      onPressed: () async {
-                        _formKey.currentState!.save();
-                        if (_formKey.currentState!.validate()) {
-                          FirebaseFirestore.instance
-                              .collection('forms')
-                              .doc(patientData.id)
-                              .update({
-                            'status': 1,
-                            'price': int.parse(price),
-                            'isUrgent': urgetCase
-                          });
-                          // Get.back();
-                        }
-                      },
-                      child: Text('Accept'),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CheckBoxWidget(
+                          function: (val) {
+                            urgetCase = val;
+                            print(val);
+                          },
+                        ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text("Enter the price for this appointement"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: CustomTextField(
+                            hintText: "Price in DA",
+                            keyboardType: TextInputType.number,
+                            onSaved: (val) {
+                              price = val!;
+                            },
+                            validator: (val) {
+                              if (val == "") {
+                                return "You must enter the price";
+                              } else if (val == null) {
+                                return "You must enter the price";
+                              } else if (val.isEmpty) {
+                                return "You must enter the price";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Colors.green),
+                                ),
+                                onPressed: () async {
+                                  _formKey.currentState!.save();
+                                  if (_formKey.currentState!.validate()) {
+                                    FirebaseFirestore.instance
+                                        .collection('forms')
+                                        .doc(patientData.id)
+                                        .update({
+                                      'status': 3,
+                                      'price': int.parse(price),
+                                      'isUrgent': urgetCase
+                                    });
+                                    Get.back();
+                                  }
+                                },
+                                child: Text('Accept'),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Colors.red),
+                                ),
+                                onPressed: () async {
+                                  String? msg =
+                                      await Get.dialog(RefuseAppointementDialog(
+                                    title: "Refuse Appointement",
+                                    subtitle:
+                                        "You are about to refuse the appointement",
+                                  ));
+                                  print(msg);
+
+                                  FirebaseFirestore.instance
+                                      .collection('forms')
+                                      .doc(patientData.id)
+                                      .update({
+                                    'status': 2,
+                                    'reasonForRefuse': msg,
+                                  });
+                                  Get.back();
+                                },
+                                child: Text('Refuse'),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Add more ListTile widgets for other patient details as needed
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.red),
-                      ),
-                      onPressed: () async {
-                        // Get.dialog(Material(
-                        //   child: Column(
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     children: [
-                        //       Text("Write the reason for refusing"),
-                        //       CustomTextField(hintText: "reason"),
-                        //     ],
-                        //   ),
-                        // ));
-                        FirebaseFirestore.instance
-                            .collection('forms')
-                            .doc(patientData.id)
-                            .update({
-                          'status': 2,
-                        });
-                        Get.back();
-                      },
-                      child: Text('Refuse'),
-                    ),
-                  ),
-                ],
-              ),
-              // Add more ListTile widgets for other patient details as needed
             ],
           ),
         ),

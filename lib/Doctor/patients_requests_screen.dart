@@ -35,7 +35,7 @@ class _PatientRequestState extends State<PatientRequest> {
     for (int i = 0; i < documents.length; i++) {
       String docId = documents[i].id;
       await FirebaseFirestore.instance.collection('forms').doc(docId).update({
-        'status': 3,
+        'status': 1,
         'appointmentDate': appointmentTime,
       });
 
