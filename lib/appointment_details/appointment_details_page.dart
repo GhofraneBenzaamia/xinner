@@ -51,19 +51,15 @@ class AppointmentDetailsPage extends StatelessWidget {
                 ],
               ),
             SizedBox(height: 10),
-            if (appointment.illnessesAndSurgeries != null)
-              Text(
-                'Illnesses and surgeries: ${appointment.illnessesAndSurgeries.toString()}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+/*
             SizedBox(height: 10),
             if (appointment.dateOfSymptoms != null)
               Text(
-                'Date of symptoms: ${appointment.illnessesAndSurgeries.toString()}',
+                'Date of symptoms: ${appointment.appointmentDate.toString()}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+              ),*/
             SizedBox(height: 10),
-            if (appointment.illnessesAndSurgeries != null)
+            if (appointment.reasonForRefuse != null)
               Text(
                 'Refuse Reason : ${appointment.reasonForRefuse.toString()}',
                 style: TextStyle(
