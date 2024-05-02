@@ -89,7 +89,8 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
       return appointmentsSnapshot.docs.length;
     });
   }*/
-   DateTime? AppointmentDate=null; // Declare myAppointmentDate here
+   DateTime? AppointmentDate=null;
+   late  int i=0; // Declare myAppointmentDate here
  /* @override
   void initState() {
     super.initState();
@@ -108,6 +109,12 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
       }
 
       // Assign the value to myAppointmentDate here
+      if (i==0){
+      setState(() {
+  AppointmentDate = snapshot.docs.first.data()['appointmentDate'].toDate();
+  i=5;
+});}
+
       AppointmentDate = snapshot.docs.first.data()['appointmentDate'].toDate();
 
       // Query the Firestore collection to count appointments before the appointment date of the patient
