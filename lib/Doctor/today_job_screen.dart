@@ -28,7 +28,7 @@ class _TodayJobState extends State<TodayJob> {
   void _fetchPatientsList() {
     FirebaseFirestore.instance
         .collection('forms')
-        .where("status", isEqualTo: 1)
+        .where("status", isEqualTo: 3)
         .snapshots()
         .listen((snapshot) {
       List<Map<String, dynamic>> updatedList = [];

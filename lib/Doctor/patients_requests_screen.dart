@@ -13,6 +13,7 @@ class PatientRequest extends StatefulWidget {
 }
 
 class _PatientRequestState extends State<PatientRequest> {
+  /*
   Future<void> setAppointements() async {
     final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
@@ -42,8 +43,47 @@ class _PatientRequestState extends State<PatientRequest> {
       // Increment appointment time by 30 minutes for next document
       appointmentTime = appointmentTime.add(Duration(minutes: 30));
     }
-  }
+  }*/
+    Future<void> setAppointments() async {
+  try {
+    // Query Firestore for documents with status 3
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('forms')
+        .where('status', isEqualTo: 3)
+        .get();
 
+    // Filter out documents that don't exist
+    final List<DocumentSnapshot<Map<String, dynamic>>> documents =
+        snapshot.docs.where((doc) => doc.exists).toList();
+
+    // Sort documents by urgency
+    documents.sort((a, b) =>
+        (b.data()?['isUrgent'] ? 1 : 0) - (a.data()?['isUrgent'] ? 1 : 0));
+
+    // Update documents with appointment dates
+    DateTime tomorrow = DateTime.now().add(const Duration(days: 1));
+    DateTime appointmentTime =
+        DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 8, 0);
+
+    for (int i = 0; i < documents.length; i++) {
+      String docId = documents[i].id;
+
+      // Update appointment date for document
+      await FirebaseFirestore.instance
+          .collection('forms')
+          .doc(docId)
+          .update({'appointmentDate': appointmentTime});
+
+      // Increment appointment time by 30 minutes for next document
+      appointmentTime = appointmentTime.add(const Duration(minutes: 30));
+
+      print('Updated appointment for document $docId to $appointmentTime');
+    }
+  } catch (e) {
+    print('Error setting appointments: $e');
+  }
+}
   List<Map<String, dynamic>> _patientsList = [];
 
   @override
@@ -147,7 +187,7 @@ class _PatientRequestState extends State<PatientRequest> {
                   horizontal: kHorizontalPadding, vertical: kVerticalPadding),
               child: ElevatedButton(
                 onPressed: () {
-                  setAppointements();
+                  setAppointments();
                 },
                 child: Text("Confirm Tomorrow's Appointements"),
               ),

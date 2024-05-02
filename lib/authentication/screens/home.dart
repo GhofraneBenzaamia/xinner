@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(width: 18),
                       category('assests/images/Eco.jpeg', "ecography"),
                       const SizedBox(width: 18),
-                      category('assests/images/Mammo.jpeg', "mammography"),
+                      category('assests/images/mammo.jpeg', "mammography"),
                       const SizedBox(width: 18),
                       category('assests/images/Ct.jpg', "ct"),
                       const SizedBox(width: 18),
@@ -117,13 +117,21 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(scrollDirection: Axis.horizontal, children: [
                     const SizedBox(width: 18),
                     article(
-                        "this is what you should do before your appointment",
+                      context,
+                      "Digitalizing Radiology Appointments",
+                      "May 1, 2024",
+                      "ph.jpeg",
+                      "In recent years, radiology appointment booking has undergone a significant transformation with the advent of digital platforms. Gone are the days of lengthy phone calls and inconvenient scheduling...",
+                    ),
+
+                    /*  article(
+                        "Digitalizing Radiology Appointments",
                         "1 January 2023",
                         'assests/images/ph.jpeg'),
                     const SizedBox(width: 18),
                     article("what are the dangers of irm?", "1 January 2023",
                         'assests/images/mammo.jpeg'),
-                    const SizedBox(width: 18),
+                    const SizedBox(width: 18),*/
                   ]),
                 ),
 
@@ -139,24 +147,38 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container article(String title, String date, String photo) {
-    return Container(
-      //color:Colors.grey,
-      //decoration: BoxDecoration(),
-      decoration: const BoxDecoration(
-          //color: Colors.grey[100],
-          // borderRadius: BorderRadius.circular(10),
+  Widget article(BuildContext context, String title, String date, String photo,
+      String content) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticlePage(
+              title: title,
+              content: content,
+            ),
           ),
-      height: 200,
-      width: 280,
-      child: Column(
-        children: [
-          articlePhoto(photo),
-          const SizedBox(height: 10),
-          articleTitle(title),
-          const SizedBox(height: 5),
-          articleDate(date),
-        ],
+        );
+      },
+      child: Container(
+        //color:Colors.grey,
+        //decoration: BoxDecoration(),
+        decoration: const BoxDecoration(
+            //color: Colors.grey[100],
+            //borderRadius: BorderRadius.circular(10),
+            ),
+        height: 200,
+        width: 280,
+        child: Column(
+          children: [
+            articlePhoto(photo),
+            const SizedBox(height: 10),
+            articleTitle(title),
+            const SizedBox(height: 5),
+            articleDate(date),
+          ],
+        ),
       ),
     );
   }
@@ -1029,6 +1051,42 @@ class RejectionReasonPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ArticlePage extends StatelessWidget {
+  final String title;
+  final String content;
+
+  ArticlePage({required this.title, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Article'),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              content,
+              style: TextStyle(fontSize: 16.0),
+            ),
+          ],
         ),
       ),
     );

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +62,7 @@ class UpcomingAppointment extends StatefulWidget {
 }
 
 class _UpcomingAppointmentState extends State<UpcomingAppointment> {
-  Stream<int> countAppointmentsBeforeMeStream(String patientId) {
+  /*Stream<int> countAppointmentsBeforeMeStream(String patientId) {
     return FirebaseFirestore.instance
         .collection('forms')
         .where('patientId', isEqualTo: patientId)
@@ -74,7 +76,8 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
       // Access the appointmentDate attribute from the fetched document
       DateTime myAppointmentDate =
           snapshot.docs.first.data()['appointmentDate'].toDate();
-
+          print(AppointmentDate);
+    print(myAppointmentDate);
       // Query the Firestore collection to count appointments before the appointment date of the patient
       final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
           await FirebaseFirestore.instance
@@ -85,15 +88,51 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
 
       return appointmentsSnapshot.docs.length;
     });
+  }*/
+   DateTime? AppointmentDate=null; // Declare myAppointmentDate here
+ /* @override
+  void initState() {
+    super.initState();
+    AppointmentDate = null; // Initialize AppointmentDate with null
+  }*/
+
+  Stream<int> gg(String patientId) {
+    return FirebaseFirestore.instance
+        .collection('forms')
+        .where('patientId', isEqualTo: patientId)
+        .snapshots()
+        .asyncMap<int>((snapshot) async {
+      if (snapshot.docs.isEmpty) {
+        // Handle the case where no document is found for the given patientId
+        return 0;
+      }
+
+      // Assign the value to myAppointmentDate here
+      AppointmentDate = snapshot.docs.first.data()['appointmentDate'].toDate();
+
+      // Query the Firestore collection to count appointments before the appointment date of the patient
+      final QuerySnapshot<Map<String, dynamic>> appointmentsSnapshot =
+          await FirebaseFirestore.instance
+              .collection('forms')
+              .where('status', isEqualTo: 3)
+              .where('appointmentDate', isLessThan: AppointmentDate)
+              .get();
+
+      return appointmentsSnapshot.docs.length;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+      print("app");
+      print(AppointmentDate);
+    final formattedTime = AppointmentDate != null ? formatMyTime(AppointmentDate!) : '';
+    final formattedDate = AppointmentDate != null ? formatMyDate(AppointmentDate!) : '';
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('forms')
             .where("patientId", isEqualTo: FireStoreUser.getCurrentUser()!.uid)
-            .where("status", isLessThanOrEqualTo: 2)
+            .where("status", isLessThanOrEqualTo: 3)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -176,8 +215,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                       Icon(Icons.calendar_month,
                                           color: Color(0xFF106163)),
                                       Text(
-                                        formatMyDate(
-                                            appointmentModel.appointmentDate),
+                                        formattedDate,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Color(0xFF106163),
@@ -199,8 +237,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                           color: Color(0xFF106163)),
                                       Text(
                                         textAlign: TextAlign.center,
-                                        formatMyTime(
-                                            appointmentModel.appointmentDate),
+                                        formattedTime,
                                         style: TextStyle(
                                           color: Color(0xFF106163),
                                           fontSize: 12,
@@ -222,7 +259,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                             color: Color(0xFF106163)),
                                         StreamBuilder<int>(
                                           stream:
-                                              countAppointmentsBeforeMeStream(
+                                              gg(
                                                   appointmentModel.patientId!),
                                           builder: (BuildContext context,
                                               AsyncSnapshot<int> snapshot) {

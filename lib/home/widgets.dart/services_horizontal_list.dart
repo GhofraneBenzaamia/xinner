@@ -11,11 +11,10 @@ class ServicesHorizontalList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
         children: [
-          serviceItem(picture: 'assests/images/xray.jpeg', text: "x-ray"),
           serviceItem(picture: 'assests/images/irm.jpeg', text: "irm"),
           serviceItem(picture: 'assests/images/Eco.jpeg', text: "ecography"),
-          serviceItem(
-              picture: 'assests/images/Mammo.jpeg', text: "mammography"),
+          serviceItem(picture: 'assests/images/xray.jpeg', text: "x-ray"),
+          serviceItem(picture: 'assests/images/mammo.jpeg', text: "mammography"),
           serviceItem(picture: 'assests/images/Ct.jpg', text: "ct"),
         ],
       ),

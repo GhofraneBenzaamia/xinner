@@ -150,6 +150,10 @@ flutter:
     - assests/images/photo.jpeg
     - assests/images/xray.jpeg
     - assests/images/photo1.jpeg
+    - assests/images/article1.jpg
+    - assests/images/article2.jfif
+    - assests/images/article3.jpg
+    - assests/images/article4.jfif
 
   #--------------- LOCAL FONTS ------------------#
   fonts:
