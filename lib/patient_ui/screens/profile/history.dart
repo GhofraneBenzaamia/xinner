@@ -1,121 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class History extends StatefulWidget {
-  @override
-  _HistoryState createState() => _HistoryState();
-}
-
-class _HistoryState extends State<History> {
-  List<Map<String, String>> historyItems = [];
-  String message = 'Ceci est votre historique.';
-
-  @override
-  void initState() {
-    super.initState();
-    addNewHistoryItem(message);
-  }
-
+class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('History Screen'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: Text('History'),
       ),
-      body: Center(
-        child: historyItems.isEmpty ? buildIllustration() : buildHistoryList(),
-      ),
-    );
-  }
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('forms')
+            .where('patientId',
+                isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-  Widget buildIllustration() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.history,
-          size: 200,
-          color: Colors.blueGrey, // Change the icon color to green
-        ),
-        SizedBox(height: 20),
-        Text(
-          'No History Items',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-  }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
 
-  Widget buildHistoryList() {
-    return Expanded(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return buildHistoryItemCard(historyItems[index]);
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text('No history yet.'),
+            );
+          }
+
+          // Group forms by patientId
+          Map<String, List<DocumentSnapshot>> formsByPatientId = {};
+          snapshot.data!.docs.forEach((doc) {
+            var patientId = doc['patientId'];
+            formsByPatientId.putIfAbsent(patientId, () => []).add(doc);
+          });
+
+          return ListView.builder(
+            itemCount: formsByPatientId.length,
+            itemBuilder: (context, index) {
+              var patientId = formsByPatientId.keys.elementAt(index);
+              var forms = formsByPatientId[patientId]!;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: forms.map((form) {
+                  var appointmentDateField = form['appointmentDate'];
+                  var appointmentDate = appointmentDateField is Timestamp
+                      ? (appointmentDateField as Timestamp).toDate()
+                      : null;
+                  var price = form['price'];
+
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Expanded(
+                      child: Container(
+                        width: double.infinity, // Take full width
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color(0xFF106163),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Last Appointment',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Color(0xFF106163),
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                'Date: ${appointmentDate != null ? '${appointmentDate.day}/${appointmentDate.month}/${appointmentDate.year}' : 'Not available'}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Time: ${appointmentDate != null ? '${appointmentDate.hour.toString().padLeft(2, '0')}:${appointmentDate.minute.toString().padLeft(2, '0')}' : 'Not available'}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Price: ${price != null ? '\$${price.toString()}' : 'Not available'}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              );
+            },
+          );
         },
-        itemCount: historyItems.length,
       ),
     );
-  }
-
-  Widget buildHistoryItemCard(Map<String, String> historyItemData) {
-    return Container(
-      alignment: Alignment.center,
-      height: 100,
-      width: 200,
-      margin:
-          const EdgeInsets.fromLTRB(16, 8, 16, 8), // Adjust margin for spacing
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 4,
-            offset: Offset(0, 2), // changes position of shadow
-          ),
-        ],
-      ),
-      child: ListTile(
-        leading: Icon(
-          Icons.history,
-          size: 50,
-          color: Colors.green, // Change the icon color to green
-        ),
-        title: Text(
-          historyItemData['time'] ?? '',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(
-          historyItemData['message'] ?? '',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void addNewHistoryItem(String message) {
-    setState(() {
-      final DateTime now = DateTime.now();
-      final String formattedTime =
-          '${now.year}_${now.month}_${now.day} at ${now.hour}:${now.minute} ${now.hour >= 12 ? 'PM' : 'AM'}';
-
-      historyItems.insert(
-        0,
-        {'time': formattedTime, 'message': message},
-      );
-    });
   }
 }
