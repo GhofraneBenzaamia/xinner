@@ -100,7 +100,8 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
   Stream<int> gg(String patientId) {
     return FirebaseFirestore.instance
         .collection('forms')
-        .where('patientId', isEqualTo: patientId)
+        .where('patientId', isEqualTo: patientId )
+        .where('status', isEqualTo: 3)
         .snapshots()
         .asyncMap<int>((snapshot) async {
       if (snapshot.docs.isEmpty) {

@@ -44,7 +44,7 @@ class _PatientRequestState extends State<PatientRequest> {
       appointmentTime = appointmentTime.add(Duration(minutes: 30));
     }
   }*/
-    Future<void> setAppointments() async {
+Future<void> setAppointments() async {
   try {
     // Query Firestore for documents with status 3
     final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
@@ -57,11 +57,24 @@ class _PatientRequestState extends State<PatientRequest> {
     final List<DocumentSnapshot<Map<String, dynamic>>> documents =
         snapshot.docs.where((doc) => doc.exists).toList();
 
-    // Sort documents by urgency
-    documents.sort((a, b) =>
-        (b.data()?['isUrgent'] ? 1 : 0) - (a.data()?['isUrgent'] ? 1 : 0));
+    // Sort documents by urgency and then by createdAt
+    documents.sort((a, b) {
+      // Compare urgency first
+      bool isUrgentA = a.data()?['isUrgent'] ?? false;
+      bool isUrgentB = b.data()?['isUrgent'] ?? false;
+      
+      if (isUrgentA != isUrgentB) {
+        return isUrgentB ? 1 : -1; // Urgent documents come first
+      }
 
-    // Update documents with appointment dates
+      // If both have the same urgency, sort by createdAt
+      Timestamp createdAtA = a.data()?['createdAt'];
+      Timestamp createdAtB = b.data()?['createdAt'];
+      return createdAtA.compareTo(createdAtB);
+    });
+
+    // Prepare batch write
+    WriteBatch batch = FirebaseFirestore.instance.batch();
     DateTime tomorrow = DateTime.now().add(const Duration(days: 1));
     DateTime appointmentTime =
         DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 8, 0);
@@ -69,21 +82,25 @@ class _PatientRequestState extends State<PatientRequest> {
     for (int i = 0; i < documents.length; i++) {
       String docId = documents[i].id;
 
-      // Update appointment date for document
-      await FirebaseFirestore.instance
-          .collection('forms')
-          .doc(docId)
-          .update({'appointmentDate': appointmentTime});
+      // Add update operation to batch
+      batch.update(
+        FirebaseFirestore.instance.collection('forms').doc(docId),
+        {'appointmentDate': appointmentTime},
+      );
 
       // Increment appointment time by 30 minutes for next document
       appointmentTime = appointmentTime.add(const Duration(minutes: 30));
 
-      print('Updated appointment for document $docId to $appointmentTime');
+      print('Scheduled appointment for document $docId at $appointmentTime');
     }
+
+    // Commit batch write
+    await batch.commit();
   } catch (e) {
     print('Error setting appointments: $e');
   }
 }
+
   List<Map<String, dynamic>> _patientsList = [];
 
   @override
@@ -95,7 +112,7 @@ class _PatientRequestState extends State<PatientRequest> {
   void _fetchPatientsList() {
     FirebaseFirestore.instance
         .collection('forms')
-        .where("status", isNotEqualTo: 3)
+        .where("status", isLessThan: 3)
         .snapshots()
         .listen((snapshot) {
       List<Map<String, dynamic>> updatedList = [];
